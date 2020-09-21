@@ -1,3 +1,11 @@
+## [1.19.8](https://github.com/newrelic-experimental/nr1-session-timeline/compare/v1.19.7...v1.19.8) (2020-09-21)
+
+
+### Bug Fixes
+
+* add overflow scroll for event timeline ([8f60661](https://github.com/newrelic-experimental/nr1-session-timeline/commit/8f606615e392eebaa8a9bcf31aed966ec3d5e18a))
+* reword search input placeholder ([189a0fb](https://github.com/newrelic-experimental/nr1-session-timeline/commit/189a0fbddbb99591552f8c8c94bea16ffd092411))
+
 ## [1.19.7](https://github.com/newrelic-experimental/nr1-session-timeline/compare/v1.19.6...v1.19.7) (2020-06-08)
 
 
