@@ -37,7 +37,7 @@ code, the source code can be found at [https://github.com/newrelic-experimental/
 
 ### moment
 
-This product includes source derived from [moment](https://github.com/moment/moment) ([v2.25.3](https://github.com/moment/moment/tree/v2.25.3)), distributed under the [MIT License](https://github.com/moment/moment/blob/v2.25.3/LICENSE):
+This product includes source derived from [moment](https://github.com/moment/moment) ([v2.28.0](https://github.com/moment/moment/tree/v2.28.0)), distributed under the [MIT License](https://github.com/moment/moment/blob/v2.28.0/LICENSE):
 
 ```
 Copyright (c) JS Foundation and other contributors
@@ -275,7 +275,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ### eslint-config-prettier
 
-This product includes source derived from [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) ([v6.10.1](https://github.com/prettier/eslint-config-prettier/tree/v6.10.1)), distributed under the [MIT License](https://github.com/prettier/eslint-config-prettier/blob/v6.10.1/LICENSE):
+This product includes source derived from [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) ([v6.11.0](https://github.com/prettier/eslint-config-prettier/tree/v6.11.0)), distributed under the [MIT License](https://github.com/prettier/eslint-config-prettier/blob/v6.11.0/LICENSE):
 
 ```
 The MIT License (MIT)
@@ -304,7 +304,7 @@ THE SOFTWARE.
 
 ### eslint-plugin-prettier
 
-This product includes source derived from [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) ([v3.1.3](https://github.com/prettier/eslint-plugin-prettier/tree/v3.1.3)), distributed under the [MIT License](https://github.com/prettier/eslint-plugin-prettier/blob/v3.1.3/LICENSE.md):
+This product includes source derived from [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) ([v3.1.4](https://github.com/prettier/eslint-plugin-prettier/tree/v3.1.4)), distributed under the [MIT License](https://github.com/prettier/eslint-plugin-prettier/blob/v3.1.4/LICENSE.md):
 
 ```
 # The MIT License (MIT)
@@ -336,7 +336,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ### eslint-plugin-react
 
-This product includes source derived from [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) ([v7.19.0](https://github.com/yannickcr/eslint-plugin-react/tree/v7.19.0)), distributed under the [MIT License](https://github.com/yannickcr/eslint-plugin-react/blob/v7.19.0/LICENSE):
+This product includes source derived from [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) ([v7.20.6](https://github.com/yannickcr/eslint-plugin-react/tree/v7.20.6)), distributed under the [MIT License](https://github.com/yannickcr/eslint-plugin-react/blob/v7.20.6/LICENSE):
 
 ```
 The MIT License (MIT)
