@@ -10,6 +10,9 @@
         "uuid": "cf5720c2-fa97-4e88-8016-8d55508a1cef"
     },
     "dependencies": {
+        "lodash.clonedeep": "^4.5.0",
+        "lodash.sortby": "^4.7.0",
+        "lodash.startcase": "^4.4.0",
         "moment": "^2.25.3",
         "prop-types": "^15.6.2",
         "react": "^16.6.3",

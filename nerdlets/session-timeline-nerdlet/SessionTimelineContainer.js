@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, GridItem, HeadingText } from 'nr1'
-import { startCase } from 'lodash'
+import startCase from 'lodash.startcase'
 import SearchBarContainer from '../../src/components/search-bar/SearchBarContainer'
 import SearchResults from '../../src/components/search-results/SearchResults'
 import TimelineContainer from '../../src/components/timeline/TimelineContainer'

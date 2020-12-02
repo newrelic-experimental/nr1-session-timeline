@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NrqlQuery, HeadingText, Stack, StackItem, Spinner, Button } from 'nr1'
-import { sortBy, startCase } from 'lodash'
+import sortBy from 'lodash.sortby'
+import startCase from 'lodash.startcase'
+import cloneDeep from 'lodash.clonedeep'
 import EventStream from './EventStream'
 import Timeline from './Timeline'
 import eventGroup from './EventGroup'
@@ -25,7 +27,6 @@ export default class TimelineContainer extends React.Component {
     } = this.props
 
     const query = `SELECT * from ${eventType} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${linkingAttributeClause} ORDER BY timestamp ASC LIMIT MAX ${duration.since}`
-    console.info(`timelineDetail numChars=${query.length} queryString=${query}`)
 
     const { data } = await NrqlQuery.query({ accountId, query })
 
@@ -66,10 +67,8 @@ export default class TimelineContainer extends React.Component {
     let attributeClause = `${groupingAttribute} = '${session}' and ${searchAttribute} = '${filter}'`
     if (linkingAttribute) {
       const query = `SELECT uniques(${linkingAttribute}) from ${event} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${groupingAttribute} = '${session}' AND ${searchAttribute} = '${filter}' LIMIT MAX ${duration.since}`
-      console.info('timelineDetail.linkingQuery', query)
 
       const { data } = await NrqlQuery.query({ accountId, query })
-      console.debug('timelineDetail.linkingQuery data', data)
 
       const links = []
       if (data && data.chart.length > 0)
@@ -142,7 +141,7 @@ export default class TimelineContainer extends React.Component {
   }
 
   onClickLegend = legendItem => {
-    const legend = [...this.state.legend]
+    const legend = cloneDeep(this.state.legend)
 
     let hiddenCount = 0
 

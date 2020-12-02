@@ -1,7 +1,7 @@
 import React from 'react'
 import { Spinner, Button, Icon, Stack, StackItem } from 'nr1'
 import Moment from 'react-moment'
-import { startCase } from 'lodash'
+import startCase from 'lodash.startcase'
 import config from '../../config/config'
 
 export default class EventStream extends React.Component {

@@ -30,7 +30,6 @@ export default class SearchResults extends React.Component {
   }
 
   createTable = data => {
-    console.debug('searchResults.createTable', data)
     return (
       <Table items={data}>
         <TableHeader>
@@ -66,7 +65,6 @@ export default class SearchResults extends React.Component {
     const nextSelected = nextProps.selected
     const nextDuration = nextProps.duration
 
-    console.info('Duration', duration, 'nextDuration', nextDuration)
     if (selected != nextSelected || duration != nextDuration) return true
     else return false
   }
@@ -79,8 +77,6 @@ export default class SearchResults extends React.Component {
     } = this.props
     const { groupingAttribute, searchAttribute, event } = config
     const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) `
-
-    console.info(`searchResults accountId: ${accountId} || query: ${query}`)
 
     return (
       <React.Fragment>

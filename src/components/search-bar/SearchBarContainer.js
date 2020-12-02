@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { startCase } from 'lodash'
+import startCase from 'lodash.startcase'
 import { TextField, NerdGraphQuery, Icon, HeadingText } from 'nr1'
 import SearchBarDrawer from './SearchBarDrawer'
 import config from '../../config/config'
@@ -15,13 +15,9 @@ export default class SearchBarContainer extends React.Component {
   }
 
   loadData = async searchTerm => {
-    console.debug('searchBar.loadData')
-
     const { entity, duration } = this.props
     const { searchAttribute, groupingAttribute, event } = config
     const nrql = `FROM ${event} SELECT uniques(${searchAttribute}) WHERE entityGuid='${entity.guid}' AND ${searchAttribute} like '%${searchTerm}%' and ${groupingAttribute} is not null ${duration.since} `
-
-    console.info('searchBar.loadData nrql', nrql)
 
     const query = `{
       actor {
@@ -54,7 +50,6 @@ export default class SearchBarContainer extends React.Component {
   }
 
   loadFromCache = async searchTerm => {
-    console.debug('searchBar.loadFromCache')
     return this.state.cachedResults.filter(result =>
       result.includes(searchTerm)
     )
