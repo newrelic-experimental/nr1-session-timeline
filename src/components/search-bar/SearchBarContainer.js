@@ -140,7 +140,7 @@ export default class SearchBarContainer extends React.Component {
               className="search__input"
               onChange={this.onSearchInputChange}
               onFocus={this.onSearchInputFocus}
-              placeholder={`Start typing in a ${startCase(searchAttribute)}`}
+              placeholder={`Start typing ...`}
               autoFocus={true}
             />
           )}
