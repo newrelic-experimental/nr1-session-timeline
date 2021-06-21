@@ -32,8 +32,8 @@ class TimelineContainer extends React.Component {
 
     let totalWarnings = 0
     let result = []
-    if (data && data.chart.length > 0)
-      result = data.chart[0].data.map(event => {
+    if (data?.[0]?.data?.length > 0)
+      result = data[0].data.map(event => {
         event['eventType'] = eventType
         event['eventAction'] = this.getEventAction(event, eventType)
 
@@ -66,8 +66,8 @@ class TimelineContainer extends React.Component {
       const { data } = await NrqlQuery.query({ accountId, query })
 
       const links = []
-      if (data && data.chart.length > 0)
-        data.chart[0].data.forEach(event => links.push(event[linkingAttribute]))
+      if (data?.[0]?.data?.length > 0)
+        data[0].data.forEach(event => links.push(event[linkingAttribute]))
 
       if (links && links.length > 0) {
         let linkedClause = `${linkingAttribute} IN (`
