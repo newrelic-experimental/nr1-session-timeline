@@ -1,5 +1,5 @@
 export default {
-  searchAttribute: 'userId', // the attribute to locate related events (will search for groupingAttribute) - mandatory
+  searchAttribute: 'email', // the attribute to locate related events (will search for groupingAttribute) - mandatory
   event: 'BrowserInteraction', // the root event to search against and build the event stream from - mandatory
   groupingAttribute: 'session', // the attribute to group events - mandatory
   linkingAttribute: '', // the attribute to use to identify related events - optional, will use groupingAttribute if not present

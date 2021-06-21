@@ -4,10 +4,10 @@ import startCase from 'lodash.startcase'
 import SearchBarContainer from '../../src/components/search-bar/SearchBarContainer'
 import SearchResults from '../../src/components/search-results/SearchResults'
 import TimelineContainer from '../../src/components/timeline/TimelineContainer'
-import config from '../../src/config/config'
 import { formatSinceAndCompare } from '../../src/components/utils/nrql-formatter'
+import { withConfigContext } from '../../src/context/ConfigContext'
 
-export default class SessionTimelineContainer extends React.PureComponent {
+class SessionTimelineContainer extends React.PureComponent {
   state = {
     filter: '',
     session: '',
@@ -30,6 +30,7 @@ export default class SessionTimelineContainer extends React.PureComponent {
     const {
       entity,
       launcherUrlState: { timeRange },
+      config,
     } = this.props
     const { filter, session, sessionDate } = this.state
     const { searchAttribute } = config
@@ -97,3 +98,5 @@ export default class SessionTimelineContainer extends React.PureComponent {
     )
   }
 }
+
+export default withConfigContext(SessionTimelineContainer)
