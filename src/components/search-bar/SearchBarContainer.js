@@ -130,7 +130,7 @@ class SearchBarContainer extends React.Component {
     return (
       <div className="search">
         <HeadingText
-          className="grid-item__header"
+          className="search__header"
           type={HeadingText.TYPE.HEADING_4}
         >
           Search for {startCase(searchAttribute)}
