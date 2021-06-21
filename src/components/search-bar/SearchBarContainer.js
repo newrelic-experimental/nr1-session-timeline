@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import startCase from 'lodash.startcase'
 import { TextField, NerdGraphQuery, Icon, HeadingText } from 'nr1'
 import SearchBarDrawer from './SearchBarDrawer'
-import config from '../../config/config'
+import { withConfigContext } from '../../context/ConfigContext'
 
-export default class SearchBarContainer extends React.Component {
+class SearchBarContainer extends React.Component {
   state = {
     loading: true,
     searchTerm: '',
@@ -15,8 +15,11 @@ export default class SearchBarContainer extends React.Component {
   }
 
   loadData = async searchTerm => {
-    const { entity, duration } = this.props
-    const { searchAttribute, groupingAttribute, event } = config
+    const {
+      entity,
+      duration,
+      config: { searchAttribute, groupingAttribute, event },
+    } = this.props
     const nrql = `FROM ${event} SELECT uniques(${searchAttribute}) WHERE entityGuid='${entity.guid}' AND ${searchAttribute} like '%${searchTerm}%' and ${groupingAttribute} is not null ${duration.since} `
 
     const query = `{
@@ -120,7 +123,9 @@ export default class SearchBarContainer extends React.Component {
 
   render() {
     const { loading, results, searchTerm, selectedItem } = this.state
-    const { searchAttribute } = config
+    const {
+      config: { searchAttribute },
+    } = this.props
 
     return (
       <div className="search">
@@ -176,3 +181,5 @@ SearchBarContainer.propTypes = {
   clearFilter: PropTypes.func.isRequired,
   duration: PropTypes.object.isRequired,
 }
+
+export default withConfigContext(SearchBarContainer)

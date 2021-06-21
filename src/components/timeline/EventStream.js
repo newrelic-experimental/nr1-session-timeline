@@ -2,9 +2,9 @@ import React from 'react'
 import { Spinner, Button, Icon, Stack, StackItem } from 'nr1'
 import Moment from 'react-moment'
 import startCase from 'lodash.startcase'
-import config from '../../config/config'
+import { withConfigContext } from '../../context/ConfigContext'
 
-export default class EventStream extends React.Component {
+class EventStream extends React.Component {
   state = {
     expandedTimelineItem: null,
   }
@@ -40,7 +40,9 @@ export default class EventStream extends React.Component {
   }
 
   getTitleDetails = event => {
-    const { eventTitleAttributes } = config
+    const {
+      config: { eventTitleAttributes },
+    } = this.props
     const { primary, secondary, truncateStart } = eventTitleAttributes.filter(
       attr => attr.name === event.eventType
     )[0]
@@ -75,8 +77,10 @@ export default class EventStream extends React.Component {
           {conditions.map((c, idx) => {
             return (
               <li key={idx} className="warning-condition">
-                {c.attribute} &gt; {c.threshold} 
-                <span className="warning-condition__actual-value ">[this event: {c.actual}]</span>
+                {c.attribute} &gt; {c.threshold}
+                <span className="warning-condition__actual-value ">
+                  [this event: {c.actual}]
+                </span>
               </li>
             )
           })}
@@ -201,3 +205,5 @@ export default class EventStream extends React.Component {
     )
   }
 }
+
+export default withConfigContext(EventStream)

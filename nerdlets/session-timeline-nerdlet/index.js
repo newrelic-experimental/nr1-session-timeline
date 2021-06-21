@@ -7,6 +7,7 @@ import {
   BlockText,
   Spinner,
 } from 'nr1'
+import { ConfigProvider } from '../../src/context/ConfigContext'
 import SessionTimelineContainer from './SessionTimelineContainer'
 
 export default class Wrapper extends React.Component {
@@ -33,11 +34,13 @@ export default class Wrapper extends React.Component {
                       data.entities[0].guid
                     ) {
                       return (
-                        <SessionTimelineContainer
-                          launcherUrlState={platformUrlState}
-                          nerdletUrlState={nerdletUrlState}
-                          entity={data.entities[0]}
-                        />
+                        <ConfigProvider>
+                          <SessionTimelineContainer
+                            launcherUrlState={platformUrlState}
+                            nerdletUrlState={nerdletUrlState}
+                            entity={data.entities[0]}
+                          />
+                        </ConfigProvider>
                       )
                     } else {
                       return (

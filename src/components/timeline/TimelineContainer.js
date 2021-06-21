@@ -7,9 +7,9 @@ import cloneDeep from 'lodash.clonedeep'
 import EventStream from './EventStream'
 import Timeline from './Timeline'
 import eventGroup from './EventGroup'
-import config from '../../config/config'
+import { withConfigContext } from '../../context/ConfigContext'
 
-export default class TimelineContainer extends React.Component {
+class TimelineContainer extends React.Component {
   state = {
     sessionData: [],
     loading: true,
@@ -56,13 +56,8 @@ export default class TimelineContainer extends React.Component {
       session,
       sessionDate,
       duration,
+      config: { event, searchAttribute, groupingAttribute, linkingAttribute },
     } = this.props
-    const {
-      event,
-      searchAttribute,
-      groupingAttribute,
-      linkingAttribute,
-    } = config
 
     let attributeClause = `${groupingAttribute} = '${session}' and ${searchAttribute} = '${filter}'`
     if (linkingAttribute) {
@@ -89,7 +84,9 @@ export default class TimelineContainer extends React.Component {
   }
 
   getWarningConditions = (event, eventType) => {
-    const { eventThresholds } = config
+    const {
+      config: { eventThresholds },
+    } = this.props
     const thresholds = eventThresholds.filter(
       threshold => threshold.eventType === eventType
     )
@@ -187,7 +184,9 @@ export default class TimelineContainer extends React.Component {
     ) {
       this.setState({ loading: true })
 
-      const { timelineEventTypes } = config
+      const {
+        config: { timelineEventTypes },
+      } = this.props
       const linkingAttributeClause = await this.getLinkingClause()
       let data = []
       let warnings = false
@@ -228,8 +227,12 @@ export default class TimelineContainer extends React.Component {
       warningCount,
       showWarningsOnly,
     } = this.state
-    const { session, sessionDate, filter } = this.props
-    const { searchAttribute } = config
+    const {
+      session,
+      sessionDate,
+      filter,
+      config: { searchAttribute },
+    } = this.props
 
     return (
       <React.Fragment>
@@ -319,3 +322,5 @@ TimelineContainer.propTypes = {
   filter: PropTypes.string.isRequired,
   duration: PropTypes.object.isRequired,
 }
+
+export default withConfigContext(TimelineContainer)

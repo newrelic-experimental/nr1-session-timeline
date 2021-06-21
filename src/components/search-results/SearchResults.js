@@ -10,11 +10,13 @@ import {
   TableRowCell,
   HeadingText,
 } from 'nr1'
-import config from '../../config/config'
+import { withConfigContext } from '../../context/ConfigContext'
 
-export default class SearchResults extends React.Component {
+class SearchResults extends React.Component {
   flattenData = data => {
-    const { groupingAttribute } = config
+    const {
+      config: { groupingAttribute },
+    } = this.props
     let flattened = []
 
     for (let datum of data) {
@@ -74,8 +76,8 @@ export default class SearchResults extends React.Component {
       entity: { accountId },
       selected,
       duration,
+      config: { groupingAttribute, searchAttribute, event },
     } = this.props
-    const { groupingAttribute, searchAttribute, event } = config
     const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) `
 
     return (
@@ -113,3 +115,5 @@ SearchResults.propTypes = {
   chooseSession: PropTypes.func.isRequired,
   duration: PropTypes.object.isRequired,
 }
+
+export default withConfigContext(SearchResults)
