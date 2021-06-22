@@ -8,14 +8,15 @@ export class ConfigProvider extends React.Component {
   state = {
     config: baseConfig,
     goldenMetricQueries: [],
-    accountId: undefined,
+    entity: undefined,
   }
 
   async componentDidMount() {
     const { entityGuid } = this.props
-    const { data } = await EntityByGuidQuery.query({
-      entityGuid: [entityGuid],
-      entityFragmentExtension: ngql`
+    if (entityGuid) {
+      const { data } = await EntityByGuidQuery.query({
+        entityGuid: [entityGuid],
+        entityFragmentExtension: ngql`
         fragment EntityFragmentExtension on EntityOutline {
           goldenMetrics {
               metrics {
@@ -25,18 +26,19 @@ export class ConfigProvider extends React.Component {
             }
         }
       `,
-    })
+      })
 
-    const goldenMetricQueries = data?.entities?.[0]?.goldenMetrics?.metrics?.reduce(
-      (acc, gm) => {
-        acc.push({ name: gm.title, query: gm.query })
-        return acc
-      },
-      []
-    )
-    const accountId = data?.entities?.[0]?.accountId
+      const goldenMetricQueries = data?.entities?.[0]?.goldenMetrics?.metrics?.reduce(
+        (acc, gm) => {
+          acc.push({ name: gm.title, query: gm.query })
+          return acc
+        },
+        []
+      )
 
-    this.setState({ goldenMetricQueries, accountId })
+      const entity = data?.entities?.[0]
+      this.setState({ goldenMetricQueries, entity })
+    }
   }
 
   render() {
@@ -56,15 +58,17 @@ export class ConfigProvider extends React.Component {
 export const ConfigConsumer = ConfigContext.Consumer
 export default ConfigContext
 
-export const withConfigContext = WrappedComponent => props => (
-  <ConfigConsumer>
-    {({ config, goldenMetricQueries, accountId }) => (
-      <WrappedComponent
-        config={config}
-        goldenMetricQueries={goldenMetricQueries}
-        accountId={accountId}
-        {...props}
-      />
-    )}
-  </ConfigConsumer>
-)
+export const withConfigContext = WrappedComponent => props => {
+  return (
+    <ConfigConsumer>
+      {({ config, goldenMetricQueries, entity }) => (
+        <WrappedComponent
+          config={config}
+          goldenMetricQueries={goldenMetricQueries}
+          entity={entity}
+          {...props}
+        />
+      )}
+    </ConfigConsumer>
+  )
+}

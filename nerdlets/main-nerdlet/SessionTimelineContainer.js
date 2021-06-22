@@ -1,9 +1,8 @@
 import React from 'react'
-import { Grid, GridItem, HeadingText } from 'nr1'
+import { Grid, GridItem, HeadingText, navigation } from 'nr1'
 import startCase from 'lodash.startcase'
 import SearchBarContainer from '../../src/components/search-bar/SearchBarContainer'
 import SearchResults from '../../src/components/search-results/SearchResults'
-import TimelineContainer from '../../src/components/timeline/TimelineContainer'
 import { formatSinceAndCompare } from '../../src/components/utils/nrql-formatter'
 import { withConfigContext } from '../../src/context/ConfigContext'
 
@@ -23,6 +22,22 @@ class SessionTimelineContainer extends React.PureComponent {
   }
 
   onChooseSession = (sessionDate, session) => {
+    const {
+      timeRange,
+      entity: { accountId },
+    } = this.props
+    const { filter } = this.state
+
+    navigation.openStackedNerdlet({
+      id: 'timeline-overlay',
+      urlState: {
+        filter,
+        duration: formatSinceAndCompare(timeRange),
+        session,
+        sessionDate,
+        accountId,
+      },
+    })
     this.setState({ sessionDate, session })
   }
 
@@ -56,15 +71,6 @@ class SessionTimelineContainer extends React.PureComponent {
                 selected={filter}
                 duration={duration}
                 chooseSession={this.onChooseSession}
-              />
-            </GridItem>
-            <GridItem className="timeline-grid-item" columnSpan={12}>
-              <TimelineContainer
-                entity={entity}
-                filter={filter}
-                session={session}
-                sessionDate={sessionDate}
-                duration={duration}
               />
             </GridItem>
           </React.Fragment>

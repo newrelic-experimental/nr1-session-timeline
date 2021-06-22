@@ -19,15 +19,44 @@ class TimelineContainer extends React.Component {
     showWarningsOnly: false,
   }
 
-  getData = async (eventType, linkingAttributeClause) => {
+  async componentDidMount() {
     const {
-      entity: { guid, accountId },
-      sessionDate,
-      duration,
+      config: { timelineEventTypes },
     } = this.props
+    const linkingAttributeClause = await this.getLinkingClause()
+    let data = []
+    let warnings = false
+    let warningCount = 0
+
+    for (let eventType of timelineEventTypes) {
+      const { result, totalWarnings } = await this.getData(
+        eventType,
+        linkingAttributeClause
+      )
+      data = data.concat(result)
+      if (totalWarnings > 0) {
+        warnings = true
+        warningCount += totalWarnings
+      }
+    }
+
+    data = sortBy(data, 'timestamp')
+
+    const legend = this.getLegend(data)
+    this.setState({
+      sessionData: data,
+      loading: false,
+      legend,
+      warnings,
+      warningCount,
+      showWarningsOnly: false,
+    })
+  }
+
+  getData = async (eventType, linkingAttributeClause) => {
+    const { entityGuid: guid, accountId, sessionDate, duration } = this.props
 
     const query = `SELECT * from ${eventType} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${linkingAttributeClause} ORDER BY timestamp ASC LIMIT MAX ${duration.since}`
-
     const { data } = await NrqlQuery.query({ accountId, query })
 
     let totalWarnings = 0
@@ -51,7 +80,8 @@ class TimelineContainer extends React.Component {
 
   getLinkingClause = async () => {
     const {
-      entity: { guid, accountId },
+      entityGuid: guid,
+      accountId,
       filter,
       session,
       sessionDate,
@@ -172,52 +202,6 @@ class TimelineContainer extends React.Component {
     this.setState({ showWarningsOnly: !showWarningsOnly })
   }
 
-  async componentDidUpdate(prevProps) {
-    const { session, sessionDate } = this.props
-    const prevSession = prevProps.session
-    const prevSessionDate = prevProps.sessionDate
-
-    if (
-      session &&
-      (session !== prevSession ||
-        (session === prevSession && sessionDate != prevSessionDate))
-    ) {
-      this.setState({ loading: true })
-
-      const {
-        config: { timelineEventTypes },
-      } = this.props
-      const linkingAttributeClause = await this.getLinkingClause()
-      let data = []
-      let warnings = false
-      let warningCount = 0
-
-      for (let eventType of timelineEventTypes) {
-        const { result, totalWarnings } = await this.getData(
-          eventType,
-          linkingAttributeClause
-        )
-        data = data.concat(result)
-        if (totalWarnings > 0) {
-          warnings = true
-          warningCount += totalWarnings
-        }
-      }
-
-      data = sortBy(data, 'timestamp')
-
-      const legend = this.getLegend(data)
-      this.setState({
-        sessionData: data,
-        loading: false,
-        legend,
-        warnings,
-        warningCount,
-        showWarningsOnly: false,
-      })
-    }
-  }
-
   render() {
     const {
       sessionData,
@@ -263,6 +247,7 @@ class TimelineContainer extends React.Component {
             horizontalType={Stack.HORIZONTAL_TYPE.CENTER}
             fullHeight
             fullWidth
+            className="timeline-container"
           >
             <StackItem className="timeline__stack-item stack__header">
               <div>
@@ -316,7 +301,6 @@ class TimelineContainer extends React.Component {
 }
 
 TimelineContainer.propTypes = {
-  entity: PropTypes.object.isRequired,
   session: PropTypes.string.isRequired,
   sessionDate: PropTypes.string.isRequired,
   filter: PropTypes.string.isRequired,

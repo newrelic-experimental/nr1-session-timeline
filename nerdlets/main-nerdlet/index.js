@@ -42,7 +42,6 @@ export default class Wrapper extends React.Component {
                               <SessionTimelineContainer
                                 timeRange={timeRange}
                                 nerdletUrlState={nerdletUrlState}
-                                entity={data.entities[0]}
                               />
                             </ConfigProvider>
                           )
