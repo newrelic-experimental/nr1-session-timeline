@@ -32,12 +32,12 @@ class SearchResults extends React.Component {
     return flattened
   }
 
-  getGoldenMetricQuery = (query, searchValue) => {
+  getGoldenMetricQuery = (query, searchValue, dateValue) => {
     const {
       config: { groupingAttribute },
       duration: { since },
     } = this.props
-    return `${query} MAX WHERE ${groupingAttribute} = '${searchValue}' ${since}`
+    return `${query} MAX WHERE ${groupingAttribute} = '${searchValue}' and dateOf(timestamp) = '${dateValue}' ${since}`
   }
 
   onChooseSession = (evt, { item, index }) => {
@@ -55,7 +55,10 @@ class SearchResults extends React.Component {
   }
 
   renderTable = data => {
-    const { goldenMetricQueries, accountId } = this.props
+    const {
+      goldenMetricQueries,
+      entity: { accountId },
+    } = this.props
 
     return (
       <Table items={data}>
@@ -85,7 +88,11 @@ class SearchResults extends React.Component {
               <SparklineTableRowCell
                 className="search-results__row"
                 accountId={accountId}
-                query={this.getGoldenMetricQuery(q.query, item.value)}
+                query={this.getGoldenMetricQuery(
+                  q.query,
+                  item.value,
+                  item.date
+                )}
               />
             ))}
           </TableRow>
