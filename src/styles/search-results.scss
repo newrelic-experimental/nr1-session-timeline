@@ -15,3 +15,8 @@
 .search-results__row {
   border-bottom: 1px solid rgb(227, 228, 228);
 }
+
+[class*='wnd-TableHeaderCell--lastColumn'],
+[class*='wnd-Table-cell--lastColumn'] {
+  visibility: hidden;
+}

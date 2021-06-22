@@ -8,6 +8,7 @@ import {
   TableHeaderCell,
   TableRow,
   TableRowCell,
+  SparklineTableRowCell,
   HeadingText,
 } from 'nr1'
 import { withConfigContext } from '../../context/ConfigContext'
@@ -19,10 +20,10 @@ class SearchResults extends React.Component {
     } = this.props
     let flattened = []
 
-    for (let datum of data) {
-      const name = datum.metadata.name
+    for (let d of data) {
+      const name = d.metadata.name
       flattened = flattened.concat(
-        datum.data.map(item => {
+        d.data.map(item => {
           return { date: name, value: item[groupingAttribute] }
         })
       )
@@ -31,30 +32,12 @@ class SearchResults extends React.Component {
     return flattened
   }
 
-  createTable = data => {
-    return (
-      <Table items={data}>
-        <TableHeader>
-          <TableHeaderCell className="search-results__table-header">
-            Date
-          </TableHeaderCell>
-          <TableHeaderCell className="search-results__table-header">
-            Session
-          </TableHeaderCell>
-        </TableHeader>
-
-        {({ item }) => (
-          <TableRow onClick={this.onChooseSession}>
-            <TableRowCell className="search-results__row">
-              {item.date}
-            </TableRowCell>
-            <TableRowCell className="search-results__row">
-              {item.value}
-            </TableRowCell>
-          </TableRow>
-        )}
-      </Table>
-    )
+  getGoldenMetricQuery = (query, searchValue) => {
+    const {
+      config: { groupingAttribute },
+      duration: { since },
+    } = this.props
+    return `${query} MAX WHERE ${groupingAttribute} = '${searchValue}' ${since}`
   }
 
   onChooseSession = (evt, { item, index }) => {
@@ -69,6 +52,46 @@ class SearchResults extends React.Component {
 
     if (selected != nextSelected || duration != nextDuration) return true
     else return false
+  }
+
+  renderTable = data => {
+    const { goldenMetricQueries, accountId } = this.props
+
+    return (
+      <Table items={data}>
+        <TableHeader>
+          <TableHeaderCell className="search-results__table-header">
+            Date
+          </TableHeaderCell>
+          <TableHeaderCell className="search-results__table-header">
+            Session
+          </TableHeaderCell>
+          {goldenMetricQueries.map(q => (
+            <TableHeaderCell className="search-results__table-header">
+              {q.name}
+            </TableHeaderCell>
+          ))}
+        </TableHeader>
+
+        {({ item }) => (
+          <TableRow onClick={this.onChooseSession}>
+            <TableRowCell className="search-results__row">
+              {item.date}
+            </TableRowCell>
+            <TableRowCell className="search-results__row">
+              {item.value}
+            </TableRowCell>
+            {goldenMetricQueries.map(q => (
+              <SparklineTableRowCell
+                className="search-results__row"
+                accountId={accountId}
+                query={this.getGoldenMetricQuery(q.query, item.value)}
+              />
+            ))}
+          </TableRow>
+        )}
+      </Table>
+    )
   }
 
   render() {
@@ -99,7 +122,7 @@ class SearchResults extends React.Component {
                 if (error) return <BlockText>{error.message}</BlockText>
 
                 if (!data) return <div>No sessions found</div>
-                return this.createTable(this.flattenData(data))
+                return this.renderTable(this.flattenData(data))
               }}
             </NrqlQuery>
           </div>

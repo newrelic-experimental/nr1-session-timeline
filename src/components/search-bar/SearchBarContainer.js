@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import startCase from 'lodash.startcase'
-import { TextField, NerdGraphQuery, Icon, HeadingText } from 'nr1'
+import {
+  TextField,
+  NerdGraphQuery,
+  Icon,
+  HeadingText,
+  Button,
+  Tooltip,
+} from 'nr1'
 import SearchBarDrawer from './SearchBarDrawer'
 import { withConfigContext } from '../../context/ConfigContext'
 
@@ -121,6 +128,10 @@ class SearchBarContainer extends React.Component {
     })
   }
 
+  onConfigClick = () => {
+    console.info('config clicked!')
+  }
+
   render() {
     const { loading, results, searchTerm, selectedItem } = this.state
     const {
@@ -129,13 +140,13 @@ class SearchBarContainer extends React.Component {
 
     return (
       <div className="search">
-        <HeadingText
-          className="search__header"
-          type={HeadingText.TYPE.HEADING_4}
-        >
-          Search for {startCase(searchAttribute)}
-        </HeadingText>
         <div className="search__bar">
+          <HeadingText
+            className="search__header"
+            type={HeadingText.TYPE.HEADING_4}
+          >
+            Search for {startCase(searchAttribute)}
+          </HeadingText>
           <Icon
             className="search__icon"
             type={Icon.TYPE.INTERFACE__CHEVRON__CHEVRON_RIGHT__WEIGHT_BOLD}
@@ -170,6 +181,16 @@ class SearchBarContainer extends React.Component {
             closeOnClickOutside={this.onCloseSearchDrawer}
           />
         )}
+        <Tooltip
+          text="Change the app configuration"
+          placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
+        >
+          <Button
+            type={Button.TYPE.NORMAL}
+            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
+            onClick={this.onConfigClick}
+          />
+        </Tooltip>
       </div>
     )
   }

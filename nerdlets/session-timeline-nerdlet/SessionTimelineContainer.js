@@ -27,11 +27,7 @@ class SessionTimelineContainer extends React.PureComponent {
   }
 
   render() {
-    const {
-      entity,
-      launcherUrlState: { timeRange },
-      config,
-    } = this.props
+    const { entity, timeRange, config } = this.props
     const { filter, session, sessionDate } = this.state
     const { searchAttribute } = config
     const duration = formatSinceAndCompare(timeRange)
@@ -52,7 +48,7 @@ class SessionTimelineContainer extends React.PureComponent {
             <GridItem
               className="timeline-grid-item"
               columnStart={1}
-              columnSpan={4}
+              columnSpan={12}
               collapseGapAfter
             >
               <SearchResults
@@ -62,7 +58,7 @@ class SessionTimelineContainer extends React.PureComponent {
                 chooseSession={this.onChooseSession}
               />
             </GridItem>
-            <GridItem className="timeline-grid-item" columnSpan={8}>
+            <GridItem className="timeline-grid-item" columnSpan={12}>
               <TimelineContainer
                 entity={entity}
                 filter={filter}
@@ -85,7 +81,7 @@ class SessionTimelineContainer extends React.PureComponent {
                 className="empty-state-header"
                 type={HeadingText.TYPE.HEADING_3}
               >
-                Search for a {startCase(searchAttribute)} to start
+                Search for a(n) {startCase(searchAttribute)} to start
               </HeadingText>
               <div className="empty-state-desc">
                 To get started, please search for and select an item in the
