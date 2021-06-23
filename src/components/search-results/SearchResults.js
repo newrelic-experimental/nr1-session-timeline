@@ -12,6 +12,8 @@ import {
   HeadingText,
 } from 'nr1'
 import { withConfigContext } from '../../context/ConfigContext'
+const dayjs = require('dayjs')
+const customParseFormat = require('dayjs/plugin/customParseFormat')
 
 class SearchResults extends React.Component {
   flattenData = data => {
@@ -35,9 +37,21 @@ class SearchResults extends React.Component {
   getGoldenMetricQuery = (query, searchValue, dateValue) => {
     const {
       config: { groupingAttribute },
-      duration: { since },
     } = this.props
-    return `${query} MAX WHERE ${groupingAttribute} = '${searchValue}' and dateOf(timestamp) = '${dateValue}' ${since}`
+
+    // convert the string to a date and then back into a string format usable by NR1
+    dayjs.extend(customParseFormat)
+    const dateFormat = 'YYYY-MM-DD HH:mm:ss'
+    const dayOfStart = dayjs(dateValue, 'MMMM DD, YYYY')
+      .hour(0)
+      .minute(0)
+      .second(0)
+      .format(dateFormat)
+    const dayOfEnd = dayjs(dayOfStart)
+      .add(86399, 'second')
+      .format(dateFormat)
+
+    return `${query} MAX WHERE ${groupingAttribute} = '${searchValue}' and dateOf(timestamp) = '${dateValue}' SINCE '${dayOfStart}' UNTIL '${dayOfEnd}'`
   }
 
   onChooseSession = (evt, { item, index }) => {
