@@ -1,9 +1,10 @@
 import React from 'react'
-import { Grid, GridItem, HeadingText, navigation } from 'nr1'
+import { HeadingText, navigation } from 'nr1'
 import startCase from 'lodash.startcase'
 import SearchBarContainer from '../../src/components/search-bar/SearchBarContainer'
 import SearchResults from '../../src/components/search-results/SearchResults'
-import { formatSinceAndCompare } from '../../src/components/utils/nrql-formatter'
+import Dashboard from '../../src/components/dashboard/Dashboard'
+import { formatSinceAndCompare } from '../../src/utils/date-formatter'
 import { withConfigContext } from '../../src/context/ConfigContext'
 
 class SessionTimelineContainer extends React.PureComponent {
@@ -43,45 +44,44 @@ class SessionTimelineContainer extends React.PureComponent {
 
   render() {
     const { entity, timeRange, config } = this.props
-    const { filter, session, sessionDate } = this.state
+    const { filter } = this.state
     const { searchAttribute } = config
     const duration = formatSinceAndCompare(timeRange)
 
     return (
-      <Grid className="container__grid-template">
-        <GridItem className="timeline-grid-item" columnStart={1} columnEnd={12}>
+      <div className="main__container">
+        <div className="main__search-item">
           <SearchBarContainer
             entity={entity}
-            duration={duration}
+            duration={formatSinceAndCompare(timeRange)}
             selectFilter={this.onSelectFilter}
             clearFilter={this.onClearFilter}
           />
-        </GridItem>
+        </div>
 
         {filter && (
-          <React.Fragment>
-            <GridItem
-              className="timeline-grid-item"
-              columnStart={1}
-              columnSpan={12}
-              collapseGapAfter
-            >
+          <>
+            <div className="main__dashboard-item">
+              <Dashboard
+                entity={entity}
+                selected={filter}
+                timeRange={timeRange}
+              />
+            </div>
+            <div className="main__search-results-item">
               <SearchResults
                 entity={entity}
                 selected={filter}
                 duration={duration}
+                timeRange={timeRange}
                 chooseSession={this.onChooseSession}
               />
-            </GridItem>
-          </React.Fragment>
+            </div>
+          </>
         )}
 
         {!filter && (
-          <GridItem
-            className="timeline-grid-item"
-            columnStart={1}
-            columnSpan={12}
-          >
+          <div className="main__empty-item">
             <div className="empty-state">
               <HeadingText
                 className="empty-state-header"
@@ -94,9 +94,9 @@ class SessionTimelineContainer extends React.PureComponent {
                 search bar above
               </div>
             </div>
-          </GridItem>
+          </div>
         )}
-      </Grid>
+      </div>
     )
   }
 }

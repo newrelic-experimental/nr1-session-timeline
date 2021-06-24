@@ -1,0 +1,44 @@
+.dashboard__container {
+  padding-top: 1rem;
+
+  .charts__container {
+    background-color: #f3f4f4;
+    padding: 0.15rem 0 0.25rem 0;
+  }
+}
+
+.chart-container {
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 2px;
+  position: relative;
+
+  [class*='component--loaded'] {
+    background-color: transparent;
+  }
+
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+
+    > .chart-title {
+      font-size: 13px;
+      font-weight: 400;
+      box-sizing: border-box;
+      padding: 8px 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .detail-chart {
+    box-sizing: border-box;
+    padding: 16px;
+    height: 150px;
+    & > [class*='Chart'] {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

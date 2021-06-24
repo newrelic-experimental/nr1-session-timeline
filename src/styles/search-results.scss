@@ -8,12 +8,12 @@
 }
 
 .search-results__table-header {
-  background-color: rgb(227, 228, 228);
+  background-color: $grey10;
   font-weight: 600;
 }
 
 .search-results__row {
-  border-bottom: 1px solid rgb(227, 228, 228);
+  border-bottom: 1px solid $grey10;
 }
 
 [class*='wnd-TableHeaderCell--lastColumn'],

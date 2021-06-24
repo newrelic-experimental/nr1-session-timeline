@@ -9,9 +9,10 @@ import {
   TableRow,
   TableRowCell,
   SparklineTableRowCell,
-  HeadingText,
 } from 'nr1'
 import { withConfigContext } from '../../context/ConfigContext'
+import SectionHeader from '../section-header/SectionHeader'
+import { formatForDisplay } from '../../utils/date-formatter'
 const dayjs = require('dayjs')
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 
@@ -75,7 +76,7 @@ class SearchResults extends React.Component {
     } = this.props
 
     return (
-      <Table items={data}>
+      <Table items={data} compact>
         <TableHeader>
           <TableHeaderCell className="search-results__table-header">
             Date
@@ -85,7 +86,7 @@ class SearchResults extends React.Component {
           </TableHeaderCell>
           {goldenMetricQueries.map(q => (
             <TableHeaderCell className="search-results__table-header">
-              {q.name}
+              {q.title}
             </TableHeaderCell>
           ))}
         </TableHeader>
@@ -120,6 +121,7 @@ class SearchResults extends React.Component {
       entity: { accountId },
       selected,
       duration,
+      timeRange,
       config: { groupingAttribute, searchAttribute, event },
     } = this.props
     const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) `
@@ -129,23 +131,21 @@ class SearchResults extends React.Component {
         {!selected && <div></div>}
         {selected && (
           <div className="search-results">
-            <div>
-              <HeadingText
-                className="grid-item__header"
-                type={HeadingText.TYPE.HEADING_4}
-              >
-                Select a Session
-              </HeadingText>
-            </div>
-            <NrqlQuery accountId={accountId} query={query}>
-              {({ data, error, loading }) => {
-                if (loading) return <Spinner fillContainer />
-                if (error) return <BlockText>{error.message}</BlockText>
+            <SectionHeader
+              header={`Sessions for ${selected} (click to view timeline)`}
+              subheader={formatForDisplay(timeRange)}
+            />
+            <div className="search-results__table">
+              <NrqlQuery accountId={accountId} query={query}>
+                {({ data, error, loading }) => {
+                  if (loading) return <Spinner fillContainer />
+                  if (error) return <BlockText>{error.message}</BlockText>
 
-                if (!data) return <div>No sessions found</div>
-                return this.renderTable(this.flattenData(data))
-              }}
-            </NrqlQuery>
+                  if (!data) return <div>No sessions found</div>
+                  return this.renderTable(this.flattenData(data))
+                }}
+              </NrqlQuery>
+            </div>
           </div>
         )}
       </React.Fragment>

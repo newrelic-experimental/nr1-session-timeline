@@ -1,10 +1,10 @@
-.grid-item__header {
-  padding: .5rem .25rem .75rem .25rem;
+.section-header {
+  padding: 0.5rem 0.25rem 0 0.25rem;
 }
 
-.stack__header {
-  padding: .5rem 0;
-  border-bottom: 1px solid;
+.section-subheader {
+  padding: 0.15rem 0.25rem 0.75rem 0.25rem;
+  color: $grey15;
 }
 
 .empty-state {

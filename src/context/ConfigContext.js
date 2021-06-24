@@ -30,7 +30,7 @@ export class ConfigProvider extends React.Component {
 
       const goldenMetricQueries = data?.entities?.[0]?.goldenMetrics?.metrics?.reduce(
         (acc, gm) => {
-          acc.push({ name: gm.title, query: gm.query })
+          acc.push({ title: gm.title, query: gm.query })
           return acc
         },
         []
