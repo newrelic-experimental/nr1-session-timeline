@@ -1,8 +1,9 @@
 {
-  "lastUpdated": "Mon Jun 21 2021 15:56:47 GMT+0000 (Coordinated Universal Time)",
+  "lastUpdated": "Mon Oct 04 2021 16:58:44 GMT+0000 (Coordinated Universal Time)",
   "projectName": "nr1-session-timeline",
   "projectUrl": "https://github.com/newrelic-experimental/nr1-session-timeline",
   "includeDev": true,
+  "includeOptDeps": false,
   "dependencies": {
     "moment@2.28.0": {
       "name": "moment",
