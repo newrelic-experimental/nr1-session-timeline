@@ -3,6 +3,8 @@
     "id": "nr1-session-timeline-nerdlet",
     "displayName": "Session Timeline",
     "description": "",
-    "entities": [{"domain": "BROWSER", "type": "APPLICATION"}],
+    "context": {
+      "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
+    },
     "actionCategory": "troubleshoot"
 }
