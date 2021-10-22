@@ -6,5 +6,4 @@
     "context": {
       "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
     },
-    "actionCategory": "troubleshoot"
 }
