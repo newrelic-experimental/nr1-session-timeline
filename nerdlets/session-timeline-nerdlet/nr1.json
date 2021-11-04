@@ -5,5 +5,5 @@
     "description": "",
     "context": {
       "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
-    },
+    }
 }
