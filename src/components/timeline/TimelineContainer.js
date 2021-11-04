@@ -31,8 +31,8 @@ export default class TimelineContainer extends React.Component {
 
     let totalWarnings = 0
     let result = []
-    if (data && data.chart.length > 0)
-      result = data.chart[0].data.map(event => {
+    if (data && data.length > 0)
+      result = data[0].data.map(event => {
         event['eventType'] = eventType
         event['eventAction'] = this.getEventAction(event, eventType)
 
@@ -72,8 +72,8 @@ export default class TimelineContainer extends React.Component {
       console.debug('timelineDetail.linkingQuery data', data)
 
       const links = []
-      if (data && data.chart.length > 0)
-        data.chart[0].data.forEach(event => links.push(event[linkingAttribute]))
+      if (data && data.length > 0)
+        data[0].data.forEach(event => links.push(event[linkingAttribute]))
 
       if (links && links.length > 0) {
         let linkedClause = `${linkingAttribute} IN (`
