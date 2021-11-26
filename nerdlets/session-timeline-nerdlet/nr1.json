@@ -1,0 +1,9 @@
+{
+  "schemaType": "NERDLET",
+  "id": "nr1-session-timeline-nerdlet-2",
+  "displayName": "Session Timeline",
+  "description": "",
+  "context": {
+    "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
+  }
+}
