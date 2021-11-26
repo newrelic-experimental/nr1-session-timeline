@@ -1,9 +1,9 @@
 {
-    "schemaType": "NERDLET",
-    "id": "nr1-session-timeline-nerdlet",
-    "displayName": "Session Timeline",
-    "description": "",
-    "context": {
-      "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
-    }
+  "schemaType": "NERDLET",
+  "id": "nr1-session-timeline-nerdlet",
+  "displayName": "Session Timeline",
+  "description": "",
+  "context": {
+    "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
+  }
 }
