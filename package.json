@@ -12,6 +12,7 @@
     "uuid": "cf5720c2-fa97-4e88-8016-8d55508a1cef"
   },
   "dependencies": {
+    "dayjs": "^1.10.7",
     "lodash.clonedeep": "^4.5.0",
     "lodash.sortby": "^4.7.0",
     "lodash.startcase": "^4.4.0",
