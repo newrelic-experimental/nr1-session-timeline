@@ -1,6 +1,6 @@
 {
   "schemaType": "NERDLET",
-  "id": "nr1-session-timeline-nerdlet-2",
+  "id": "nr1-session-timeline-nerdlet",
   "displayName": "Session Timeline",
   "description": "",
   "context": {
