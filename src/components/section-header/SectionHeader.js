@@ -7,12 +7,14 @@ const SectionHeader = ({ header, subheader }) => {
       <HeadingText className="section-header" type={HeadingText.TYPE.HEADING_4}>
         {header}
       </HeadingText>
-      <HeadingText
-        type={HeadingText.TYPE.HEADING_5}
-        className="section-subheader"
-      >
-        {subheader}
-      </HeadingText>
+      {subheader && (
+        <HeadingText
+          type={HeadingText.TYPE.HEADING_5}
+          className="section-subheader"
+        >
+          {subheader}
+        </HeadingText>
+      )}
     </>
   )
 }

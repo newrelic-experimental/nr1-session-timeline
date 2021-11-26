@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { NrqlQuery, HeadingText, Stack, StackItem, Spinner, Button } from 'nr1'
 import sortBy from 'lodash.sortby'
-import startCase from 'lodash.startcase'
 import cloneDeep from 'lodash.clonedeep'
 import EventStream from './EventStream'
 import Timeline from './Timeline'
@@ -19,38 +18,43 @@ class TimelineContainer extends React.Component {
     showWarningsOnly: false,
   }
 
-  async componentDidMount() {
-    const {
-      config: { timelineEventTypes },
-    } = this.props
-    const linkingAttributeClause = await this.getLinkingClause()
-    let data = []
-    let warnings = false
-    let warningCount = 0
+  async componentDidUpdate() {
+    const { loading } = this.state
+    if (loading) {
+      const {
+        config: { timelineEventTypes },
+      } = this.props
+      if (timelineEventTypes) {
+        const linkingAttributeClause = await this.getLinkingClause()
+        let data = []
+        let warnings = false
+        let warningCount = 0
 
-    for (let eventType of timelineEventTypes) {
-      const { result, totalWarnings } = await this.getData(
-        eventType,
-        linkingAttributeClause
-      )
-      data = data.concat(result)
-      if (totalWarnings > 0) {
-        warnings = true
-        warningCount += totalWarnings
+        for (let eventType of timelineEventTypes) {
+          const { result, totalWarnings } = await this.getData(
+            eventType,
+            linkingAttributeClause
+          )
+          data = data.concat(result)
+          if (totalWarnings > 0) {
+            warnings = true
+            warningCount += totalWarnings
+          }
+        }
+
+        data = sortBy(data, 'timestamp')
+
+        const legend = this.getLegend(data)
+        this.setState({
+          sessionData: data,
+          loading: false,
+          legend,
+          warnings,
+          warningCount,
+          showWarningsOnly: false,
+        })
       }
     }
-
-    data = sortBy(data, 'timestamp')
-
-    const legend = this.getLegend(data)
-    this.setState({
-      sessionData: data,
-      loading: false,
-      legend,
-      warnings,
-      warningCount,
-      showWarningsOnly: false,
-    })
   }
 
   getData = async (eventType, linkingAttributeClause) => {
@@ -86,7 +90,12 @@ class TimelineContainer extends React.Component {
       session,
       sessionDate,
       duration,
-      config: { event, searchAttribute, groupingAttribute, linkingAttribute },
+      config: {
+        rootEvent: event,
+        searchAttribute,
+        groupingAttribute,
+        linkingAttribute,
+      },
     } = this.props
 
     let attributeClause = `${groupingAttribute} = '${session}' and ${searchAttribute} = '${filter}'`
@@ -252,8 +261,7 @@ class TimelineContainer extends React.Component {
             <StackItem className="timeline__stack-item stack__header">
               <div>
                 <HeadingText type={HeadingText.TYPE.HEADING_3}>
-                  Viewing Session {session} for {startCase(searchAttribute)}{' '}
-                  {filter} ({sessionDate})
+                  Viewing Session {session} for {filter} ({sessionDate})
                 </HeadingText>
               </div>
             </StackItem>
@@ -271,10 +279,6 @@ class TimelineContainer extends React.Component {
                     We found {warningCount} segment(s) that violated expected
                     performance thresholds.
                   </div>
-                  {/* <div
-                    className="timeline__warning-button"
-                    onClick={this.onToggleWarnings}
-                  > */}
                   <Button
                     className="timeline__warning-button"
                     onClick={this.onToggleWarnings}
@@ -283,7 +287,6 @@ class TimelineContainer extends React.Component {
                     {showWarningsOnly && 'Show all events'}
                     {!showWarningsOnly && 'Show violations only'}
                   </Button>
-                  {/* </div> */}
                 </div>
               )}
               <EventStream

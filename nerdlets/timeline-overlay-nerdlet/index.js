@@ -15,7 +15,7 @@ export default class Wrapper extends React.Component {
           entityGuid,
           accountId,
         }) => (
-          <ConfigProvider>
+          <ConfigProvider entityGuid={entityGuid}>
             <TimelineContainer
               accountId={accountId}
               entityGuid={entityGuid}

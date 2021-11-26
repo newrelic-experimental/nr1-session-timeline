@@ -1,12 +1,13 @@
 import React from 'react'
-import baseConfig from '../../src/config/config'
+import { getDocument } from '../data/nerdstore'
+import configs from '../data/packDefaults'
 import { EntityByGuidQuery, ngql } from 'nr1'
 
 const ConfigContext = React.createContext()
 
 export class ConfigProvider extends React.Component {
   state = {
-    config: baseConfig,
+    config: {},
     goldenMetricQueries: [],
     entity: undefined,
   }
@@ -37,7 +38,10 @@ export class ConfigProvider extends React.Component {
       )
 
       const entity = data?.entities?.[0]
-      this.setState({ goldenMetricQueries, entity })
+
+      let config = await getDocument(entityGuid)
+      // if (!config) config = configs.find(c => c.type === entity.domain)
+      this.setState({ goldenMetricQueries, entity, config })
     }
   }
 

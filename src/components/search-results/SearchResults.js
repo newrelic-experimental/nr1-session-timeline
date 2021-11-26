@@ -122,7 +122,7 @@ class SearchResults extends React.Component {
       selected,
       duration,
       timeRange,
-      config: { groupingAttribute, searchAttribute, event },
+      config: { groupingAttribute, searchAttribute, rootEvent: event },
     } = this.props
     const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) `
 
