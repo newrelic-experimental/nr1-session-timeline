@@ -14,6 +14,7 @@ export default class Wrapper extends React.Component {
           duration,
           entityGuid,
           accountId,
+          config,
         }) => (
           <ConfigProvider entityGuid={entityGuid}>
             <TimelineContainer
@@ -23,6 +24,7 @@ export default class Wrapper extends React.Component {
               session={session}
               sessionDate={sessionDate}
               duration={duration}
+              config={config}
             />
           </ConfigProvider>
         )}

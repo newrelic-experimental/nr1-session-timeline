@@ -13,20 +13,6 @@ class SessionTimelineContainer extends React.PureComponent {
     filter: '',
     session: '',
     sessionDate: '',
-    loading: true,
-    hasConfig: false,
-  }
-
-  componentDidUpdate() {
-    const { loading } = this.state
-    // wait for the configuration to complete loading
-    if (loading) {
-      const { entity, config } = this.props
-      if (entity) {
-        const configLoaded = config && true
-        this.setState({ loading: false, hasConfig: configLoaded })
-      }
-    }
   }
 
   onSelectFilter = filter => {
@@ -41,6 +27,7 @@ class SessionTimelineContainer extends React.PureComponent {
     const {
       timeRange,
       entity: { accountId },
+      config,
     } = this.props
     const { filter } = this.state
 
@@ -52,24 +39,25 @@ class SessionTimelineContainer extends React.PureComponent {
         session,
         sessionDate,
         accountId,
+        config,
       },
     })
     this.setState({ sessionDate, session })
   }
 
   render() {
-    const { entity, timeRange, config } = this.props
-    const { loading, hasConfig, filter } = this.state
+    const { entity, timeRange, config, configLoading: loading } = this.props
+    const { filter } = this.state
 
     if (loading) return <Spinner />
-    if (!loading && !hasConfig) {
+    if (!loading && !config) {
       return (
         <div className="main__container">
           <ConfigurationContainer />
         </div>
       )
     }
-    if (!loading && hasConfig) {
+    if (!loading && config) {
       const { searchAttribute } = config
       const duration = formatSinceAndCompare(timeRange)
       return (

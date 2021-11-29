@@ -7,6 +7,7 @@ const ConfigContext = React.createContext()
 
 export class ConfigProvider extends React.Component {
   state = {
+    configLoading: true,
     config: {},
     goldenMetricQueries: [],
     entity: undefined,
@@ -41,9 +42,19 @@ export class ConfigProvider extends React.Component {
 
       let config = await getDocument(entityGuid)
       // if (!config) config = configs.find(c => c.type === entity.domain)
-      this.setState({ goldenMetricQueries, entity, config })
+      this.setState({
+        goldenMetricQueries,
+        entity,
+        config,
+        configLoading: false,
+      })
     }
   }
+
+  onSaveConfig = config =>
+    this.setState({ config, configLoading: true }, () => {
+      this.setState({ configLoading: false })
+    })
 
   render() {
     const { children } = this.props
@@ -51,6 +62,7 @@ export class ConfigProvider extends React.Component {
       <ConfigContext.Provider
         value={{
           ...this.state,
+          saveConfig: this.onSaveConfig,
         }}
       >
         {children}
@@ -65,11 +77,13 @@ export default ConfigContext
 export const withConfigContext = WrappedComponent => props => {
   return (
     <ConfigConsumer>
-      {({ config, goldenMetricQueries, entity }) => (
+      {({ configLoading, config, goldenMetricQueries, entity, saveConfig }) => (
         <WrappedComponent
+          configLoading={configLoading}
           config={config}
           goldenMetricQueries={goldenMetricQueries}
           entity={entity}
+          saveConfig={saveConfig}
           {...props}
         />
       )}

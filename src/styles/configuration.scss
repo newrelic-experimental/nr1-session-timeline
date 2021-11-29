@@ -1,0 +1,50 @@
+.init-config__container {
+  .init-config__desc {
+    padding: 0.5rem 0 0.5rem 0.25rem;
+    font-size: 0.85rem;
+  }
+}
+
+.config-form__container {
+  @include panel;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.config-form__item {
+  display: inline-block;
+  padding: 0.5rem;
+  max-width: 20rem;
+}
+
+.config-form__label {
+  display: inline-block;
+  padding-left: 0.5rem;
+  padding-top: 0.25rem;
+  max-width: 20rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.config-form__block {
+  @include panel;
+  margin: 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: white;
+}
+
+.config-form__line {
+  padding: 0.25rem 0.5rem;
+  margin: 0.5rem;
+  background-color: $grey1;
+  display: flex;
+}
+
+.form-mandatory {
+  &:before {
+    content: '*';
+    color: #bf0016;
+    padding-right: 0.1rem;
+  }
+}

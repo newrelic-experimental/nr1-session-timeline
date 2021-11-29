@@ -4,7 +4,7 @@ import Moment from 'react-moment'
 import startCase from 'lodash.startcase'
 import { withConfigContext } from '../../context/ConfigContext'
 
-class EventStream extends React.Component {
+export default class EventStream extends React.Component {
   state = {
     expandedTimelineItem: null,
   }
@@ -206,4 +206,4 @@ class EventStream extends React.Component {
   }
 }
 
-export default withConfigContext(EventStream)
+// export default withConfigContext(EventStream)

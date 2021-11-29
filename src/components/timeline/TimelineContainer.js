@@ -8,7 +8,7 @@ import Timeline from './Timeline'
 import eventGroup from './EventGroup'
 import { withConfigContext } from '../../context/ConfigContext'
 
-class TimelineContainer extends React.Component {
+export default class TimelineContainer extends React.Component {
   state = {
     sessionData: [],
     loading: true,
@@ -24,6 +24,7 @@ class TimelineContainer extends React.Component {
       const {
         config: { timelineEventTypes },
       } = this.props
+
       if (timelineEventTypes) {
         const linkingAttributeClause = await this.getLinkingClause()
         let data = []
@@ -220,12 +221,7 @@ class TimelineContainer extends React.Component {
       warningCount,
       showWarningsOnly,
     } = this.state
-    const {
-      session,
-      sessionDate,
-      filter,
-      config: { searchAttribute },
-    } = this.props
+    const { session, sessionDate, filter, config } = this.props
 
     return (
       <React.Fragment>
@@ -294,6 +290,7 @@ class TimelineContainer extends React.Component {
                 loading={loading}
                 legend={legend}
                 showWarningsOnly={showWarningsOnly}
+                config={config}
               />
             </StackItem>
           </Stack>
@@ -310,4 +307,4 @@ TimelineContainer.propTypes = {
   duration: PropTypes.object.isRequired,
 }
 
-export default withConfigContext(TimelineContainer)
+// export default withConfigContext(TimelineContainer)
