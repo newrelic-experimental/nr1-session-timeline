@@ -10,6 +10,10 @@
   padding: 0.75rem;
   display: flex;
   flex-direction: column;
+
+  .button-row {
+    padding: 0.5rem;
+  }
 }
 
 .config-form__item {

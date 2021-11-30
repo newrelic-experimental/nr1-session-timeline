@@ -136,8 +136,10 @@ class SearchBarContainer extends React.Component {
     const { loading, results, searchTerm, selectedItem } = this.state
     const {
       config: { searchAttribute },
+      deleteConfig,
     } = this.props
 
+    console.info('searchBar props', this.props)
     return (
       <div className="search">
         <div className="search__bar">
@@ -181,16 +183,23 @@ class SearchBarContainer extends React.Component {
             closeOnClickOutside={this.onCloseSearchDrawer}
           />
         )}
-        <Tooltip
-          text="Change the app configuration"
-          placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
-        >
-          <Button
-            type={Button.TYPE.NORMAL}
-            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
-            onClick={this.onConfigClick}
-          />
-        </Tooltip>
+
+        <div className="button-row">
+          <Button type={Button.TYPE.NORMAL} onClick={deleteConfig}>
+            Delete Config
+          </Button>
+
+          <Tooltip
+            text="Change the app configuration"
+            placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
+          >
+            <Button
+              type={Button.TYPE.NORMAL}
+              iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
+              onClick={this.onConfigClick}
+            />
+          </Tooltip>
+        </div>
       </div>
     )
   }

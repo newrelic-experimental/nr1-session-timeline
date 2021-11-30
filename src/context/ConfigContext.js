@@ -1,6 +1,5 @@
 import React from 'react'
-import { getDocument } from '../data/nerdstore'
-import configs from '../data/packDefaults'
+import { readDocument, writeDocument, deleteDocument } from '../data/nerdstore'
 import { EntityByGuidQuery, ngql } from 'nr1'
 
 const ConfigContext = React.createContext()
@@ -40,7 +39,9 @@ export class ConfigProvider extends React.Component {
 
       const entity = data?.entities?.[0]
 
-      let config = await getDocument(entityGuid)
+      console.info('entity', entity)
+
+      let config = await readDocument(entityGuid)
       // if (!config) config = configs.find(c => c.type === entity.domain)
       this.setState({
         goldenMetricQueries,
@@ -51,10 +52,21 @@ export class ConfigProvider extends React.Component {
     }
   }
 
-  onSaveConfig = config =>
+  onSaveConfig = async config => {
+    const { entity } = this.state
+    await writeDocument(entity.guid, config)
     this.setState({ config, configLoading: true }, () => {
       this.setState({ configLoading: false })
     })
+  }
+
+  onDeleteConfig = async () => {
+    const { entity } = this.state
+    await deleteDocument(entity.guid)
+    this.setState({ config: null, configLoading: true }, () => {
+      this.setState({ configLoading: false })
+    })
+  }
 
   render() {
     const { children } = this.props
@@ -63,6 +75,7 @@ export class ConfigProvider extends React.Component {
         value={{
           ...this.state,
           saveConfig: this.onSaveConfig,
+          deleteConfig: this.onDeleteConfig,
         }}
       >
         {children}
@@ -77,13 +90,21 @@ export default ConfigContext
 export const withConfigContext = WrappedComponent => props => {
   return (
     <ConfigConsumer>
-      {({ configLoading, config, goldenMetricQueries, entity, saveConfig }) => (
+      {({
+        configLoading,
+        config,
+        goldenMetricQueries,
+        entity,
+        saveConfig,
+        deleteConfig,
+      }) => (
         <WrappedComponent
           configLoading={configLoading}
           config={config}
           goldenMetricQueries={goldenMetricQueries}
           entity={entity}
           saveConfig={saveConfig}
+          deleteConfig={deleteConfig}
           {...props}
         />
       )}
