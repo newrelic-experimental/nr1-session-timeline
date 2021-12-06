@@ -43,7 +43,7 @@ class SearchResults extends React.Component {
     // convert the string to a date and then back into a string format usable by NR1
     dayjs.extend(customParseFormat)
     const dateFormat = 'YYYY-MM-DD HH:mm:ss'
-    const dayOfStart = dayjs(dateValue, 'MMMM DD, YYYY')
+    const dayOfStart = dayjs(dateValue, 'MMMM D, YYYY')
       .hour(0)
       .minute(0)
       .second(0)
