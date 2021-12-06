@@ -2,14 +2,13 @@ import React from 'react'
 import { BlockText, Button } from 'nr1'
 import SectionHeader from '../section-header/SectionHeader'
 import { withConfigContext } from '../../context/ConfigContext'
-import defaults from '../../data/packDefaults'
 import { schema } from '../../data/packSchema'
 import { createComponent } from './ConfigFormComponentFactory'
 
 class ConfigurationContainer extends React.PureComponent {
   render() {
-    const { entity, saveConfig } = this.props
-    const config = defaults.find(d => d.type === entity.domain)
+    const { saveConfig, config } = this.props
+
     const formContents = Object.entries(config).map(([key, value]) => {
       return createComponent(schema, key, value)
     })
@@ -44,10 +43,7 @@ class ConfigurationContainer extends React.PureComponent {
         <div className="config-form__container">
           {formContents}
           <div className="button-row">
-            <Button
-              onClick={() => saveConfig(config)}
-              type={Button.TYPE.PRIMARY}
-            >
+            <Button onClick={saveConfig} type={Button.TYPE.PRIMARY}>
               Continue
             </Button>
           </div>
@@ -57,4 +53,5 @@ class ConfigurationContainer extends React.PureComponent {
   }
 }
 
+// export default ConfigurationContainer
 export default withConfigContext(ConfigurationContainer)

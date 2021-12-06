@@ -1,15 +1,18 @@
 import React from 'react'
-import { readDocument, writeDocument, deleteDocument } from '../data/nerdstore'
+import jsonpointer from 'jsonpointer'
+import { cloneDeep } from 'lodash'
 import { EntityByGuidQuery, ngql } from 'nr1'
+import defaults from '../data/packDefaults'
+import { readDocument, writeDocument, deleteDocument } from '../data/nerdstore'
 
 const ConfigContext = React.createContext()
-
 export class ConfigProvider extends React.Component {
   state = {
     configLoading: true,
     config: {},
     goldenMetricQueries: [],
     entity: undefined,
+    firstTime: true,
   }
 
   async componentDidMount() {
@@ -38,24 +41,39 @@ export class ConfigProvider extends React.Component {
       )
 
       const entity = data?.entities?.[0]
-
-      console.info('entity', entity)
-
       let config = await readDocument(entityGuid)
-      // if (!config) config = configs.find(c => c.type === entity.domain)
+      let firstTime = false
+      if (!config) {
+        firstTime = true
+        config = this.defaultConfig(entity)
+      }
+
       this.setState({
         goldenMetricQueries,
         entity,
         config,
         configLoading: false,
+        firstTime,
       })
     }
   }
 
-  onSaveConfig = async config => {
-    const { entity } = this.state
+  defaultConfig = entity => defaults.find(d => d.type === entity.domain)
+
+  onChangeConfigItem = (path, value) => {
+    console.info('changing config', path, value)
+    const config = cloneDeep(this.state.config)
+
+    const pointer = jsonpointer.compile('/' + path)
+    pointer && pointer.set(config, value)
+
+    this.setState({ config })
+  }
+
+  onSaveConfig = async () => {
+    const { entity, config } = this.state
     await writeDocument(entity.guid, config)
-    this.setState({ config, configLoading: true }, () => {
+    this.setState({ config, configLoading: true, firstTime: false }, () => {
       this.setState({ configLoading: false })
     })
   }
@@ -63,9 +81,16 @@ export class ConfigProvider extends React.Component {
   onDeleteConfig = async () => {
     const { entity } = this.state
     await deleteDocument(entity.guid)
-    this.setState({ config: null, configLoading: true }, () => {
-      this.setState({ configLoading: false })
-    })
+    this.setState(
+      {
+        config: this.defaultConfig(entity),
+        configLoading: true,
+        firstTime: true,
+      },
+      () => {
+        this.setState({ configLoading: false })
+      }
+    )
   }
 
   render() {
@@ -76,6 +101,7 @@ export class ConfigProvider extends React.Component {
           ...this.state,
           saveConfig: this.onSaveConfig,
           deleteConfig: this.onDeleteConfig,
+          changeConfig: this.onChangeConfigItem,
         }}
       >
         {children}
@@ -93,18 +119,22 @@ export const withConfigContext = WrappedComponent => props => {
       {({
         configLoading,
         config,
+        firstTime,
         goldenMetricQueries,
         entity,
         saveConfig,
         deleteConfig,
+        changeConfig,
       }) => (
         <WrappedComponent
           configLoading={configLoading}
           config={config}
+          firstTime={firstTime}
           goldenMetricQueries={goldenMetricQueries}
           entity={entity}
           saveConfig={saveConfig}
           deleteConfig={deleteConfig}
+          changeConfig={changeConfig}
           {...props}
         />
       )}

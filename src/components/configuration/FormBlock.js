@@ -3,12 +3,14 @@ import { Tooltip } from 'nr1'
 import { transformCamelCaseForDisplay } from '../../utils/text-formatter'
 import { createComponent } from './ConfigFormComponentFactory'
 
-const FormBlock = ({ schema, values, type }) => {
-  const blockItems = values.map(value => {
+const FormBlock = ({ schema, values, type, path }) => {
+  const blockItems = values.map((value, idx) => {
     return (
       <div className={`config-form__${type}`}>
         {Object.entries(value).map(([key, value]) =>
-          schema.children.map(child => createComponent(child, key, value))
+          schema.children.map(child =>
+            createComponent(child, key, value, path + '/' + idx + '/' + key)
+          )
         )}
       </div>
     )

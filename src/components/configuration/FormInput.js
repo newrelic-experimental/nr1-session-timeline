@@ -1,8 +1,9 @@
 import React from 'react'
 import { TextField, Tooltip } from 'nr1'
 import { transformCamelCaseForDisplay } from '../../utils/text-formatter'
+import { withConfigContext } from '../../context/ConfigContext'
 
-const FormInput = ({ schemaItem, value }) => {
+const FormInput = ({ path, schemaItem, value, changeConfig }) => {
   return (
     <Tooltip
       placementType={Tooltip.PLACEMENT_TYPE.RIGHT}
@@ -10,6 +11,7 @@ const FormInput = ({ schemaItem, value }) => {
     >
       <TextField
         defaultValue={value}
+        onChange={e => changeConfig(path, e.target.value)}
         label={
           schemaItem.title
             ? schemaItem.title
@@ -23,4 +25,4 @@ const FormInput = ({ schemaItem, value }) => {
   )
 }
 
-export default FormInput
+export default withConfigContext(FormInput)
