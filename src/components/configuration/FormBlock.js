@@ -4,7 +4,14 @@ import { withConfigContext } from '../../context/ConfigContext'
 import { transformCamelCaseForDisplay } from '../../utils/text-formatter'
 import { createComponent } from './ConfigFormComponentFactory'
 
-const FormBlock = ({ schema, values, type, path, addConfigItem }) => {
+const FormBlock = ({
+  schema,
+  values,
+  type,
+  path,
+  addConfigItem,
+  deleteConfigItem,
+}) => {
   const blockName = schema.title
     ? schema.title
     : transformCamelCaseForDisplay(schema.name)
@@ -12,11 +19,19 @@ const FormBlock = ({ schema, values, type, path, addConfigItem }) => {
   const blockItems = values.map((value, idx) => {
     return (
       <div className={`config-form__${type}`}>
-        {Object.entries(value).map(([key, value]) =>
-          schema.children.map(child =>
+        {Object.entries(value).map(([key, value]) => {
+          return schema.children.map(child =>
             createComponent(child, key, value, path + '/' + idx + '/' + key)
           )
-        )}
+        })}
+        <Tooltip placementType={Tooltip.PLACEMENT_TYPE.BOTTOM} text="Remove">
+          <Button
+            onClick={() => deleteConfigItem(path, idx)}
+            className={`delete-button__${type}`}
+            type={Button.TYPE.OUTLINE}
+            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__TRASH}
+          />
+        </Tooltip>
       </div>
     )
   })

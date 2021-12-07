@@ -61,12 +61,8 @@ export class ConfigProvider extends React.Component {
   defaultConfig = entity => defaults.find(d => d.type === entity.domain)
 
   onChangeConfigItem = (path, value) => {
-    console.info('changing config', path, value)
     const config = cloneDeep(this.state.config)
-
-    const pointer = jsonpointer.compile('/' + path)
-    pointer && pointer.set(config, value)
-
+    jsonpointer.set(config, '/' + path, value)
     this.setState({ config })
   }
 
@@ -85,6 +81,12 @@ export class ConfigProvider extends React.Component {
       jsonpointer.set(config, '/' + path + '/-', this.getEmptyItem(schema))
       this.setState({ config })
     }
+  }
+
+  onDeleteConfigItem = (path, idx) => {
+    const config = cloneDeep(this.state.config)
+    jsonpointer.get(config, '/' + path).splice(idx, 1)
+    this.setState({ config })
   }
 
   onSaveConfig = async () => {
@@ -120,6 +122,7 @@ export class ConfigProvider extends React.Component {
           deleteConfig: this.onDeleteConfig,
           changeConfig: this.onChangeConfigItem,
           addConfigItem: this.onAddConfigItem,
+          deleteConfigItem: this.onDeleteConfigItem,
         }}
       >
         {children}
@@ -144,6 +147,7 @@ export const withConfigContext = WrappedComponent => props => {
         deleteConfig,
         changeConfig,
         addConfigItem,
+        deleteConfigItem,
       }) => (
         <WrappedComponent
           configLoading={configLoading}
@@ -155,6 +159,7 @@ export const withConfigContext = WrappedComponent => props => {
           deleteConfig={deleteConfig}
           changeConfig={changeConfig}
           addConfigItem={addConfigItem}
+          deleteConfigItem={deleteConfigItem}
           {...props}
         />
       )}

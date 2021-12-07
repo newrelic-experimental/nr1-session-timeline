@@ -76,6 +76,13 @@ export const schema = [
               'The event attribute whose value will be compared against the threshold. E.g. duration',
           },
           {
+            name: 'threshold',
+            mandatory: true,
+            modifiable: true,
+            desc:
+              'The numeric value the attribute will be evaluated against. Attributes that exceed the value will be considered in violation.',
+          },
+          {
             name: 'categoryAttribute',
             mandatory: false,
             modifiable: true,
@@ -88,13 +95,6 @@ export const schema = [
             modifiable: true,
             desc:
               'Use this when you wish to evaluate only a subset of events that match a specific value. This is the value that the categoryAttribute will be compared against. For instance, in the BrowserInteraction event, there is a category attribute that allows us to differentiate between page loads and route changes. To apply this threshold to route changes only, we would enter "category" into the categoryAttribute field, and "Route Change" in this field.',
-          },
-          {
-            name: 'threshold',
-            mandatory: true,
-            modifiable: true,
-            desc:
-              'The numeric value the attribute will be evaluated against. Attributes that exceed the value will be considered in violation.',
           },
         ],
       },
