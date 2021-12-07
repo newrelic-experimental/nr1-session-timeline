@@ -28,25 +28,24 @@ class ConfigurationContainer extends React.PureComponent {
           type={BlockText.TYPE.PARAGRAPH}
           className="init-config__desc"
         >
-          We have provided some default values - please make sure the User
-          Identifier matches the user attribute you are capturing in your data.
+          We have provided some default values - at a minimun, make sure the
+          User Identifier matches the user attribute you are capturing in your
+          data.
         </BlockText>
 
         <BlockText
           type={BlockText.TYPE.PARAGRAPH}
           className="init-config__desc"
         >
-          When you are ready, go ahead and click Continue. You will be able to
-          change these at any time in the app's configuration menu.
+          When you are ready, click Continue. You will be able to change these
+          at any time in the app's configuration menu.
         </BlockText>
 
-        <div className="config-form__container">
-          {formContents}
-          <div className="button-row">
-            <Button onClick={saveConfig} type={Button.TYPE.PRIMARY}>
-              Continue
-            </Button>
-          </div>
+        <div className="config-form__container">{formContents}</div>
+        <div className="button-row">
+          <Button onClick={saveConfig} type={Button.TYPE.PRIMARY}>
+            Continue
+          </Button>
         </div>
       </div>
     )

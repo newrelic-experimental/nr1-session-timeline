@@ -1,6 +1,6 @@
 import React from 'react'
 import jsonpointer from 'jsonpointer'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 import { EntityByGuidQuery, ngql } from 'nr1'
 import defaults from '../data/packDefaults'
 import { readDocument, writeDocument, deleteDocument } from '../data/nerdstore'
@@ -70,6 +70,23 @@ export class ConfigProvider extends React.Component {
     this.setState({ config })
   }
 
+  getEmptyItem = schema => {
+    if (schema.children) {
+      return schema.children.reduce((acc, child) => {
+        acc[child.name] = child.children ? [this.getEmptyItem(child)] : null
+        return acc
+      }, {})
+    }
+  }
+
+  onAddConfigItem = (path, schema) => {
+    if (schema.children) {
+      const config = cloneDeep(this.state.config)
+      jsonpointer.set(config, '/' + path + '/-', this.getEmptyItem(schema))
+      this.setState({ config })
+    }
+  }
+
   onSaveConfig = async () => {
     const { entity, config } = this.state
     await writeDocument(entity.guid, config)
@@ -102,6 +119,7 @@ export class ConfigProvider extends React.Component {
           saveConfig: this.onSaveConfig,
           deleteConfig: this.onDeleteConfig,
           changeConfig: this.onChangeConfigItem,
+          addConfigItem: this.onAddConfigItem,
         }}
       >
         {children}
@@ -125,6 +143,7 @@ export const withConfigContext = WrappedComponent => props => {
         saveConfig,
         deleteConfig,
         changeConfig,
+        addConfigItem,
       }) => (
         <WrappedComponent
           configLoading={configLoading}
@@ -135,6 +154,7 @@ export const withConfigContext = WrappedComponent => props => {
           saveConfig={saveConfig}
           deleteConfig={deleteConfig}
           changeConfig={changeConfig}
+          addConfigItem={addConfigItem}
           {...props}
         />
       )}
