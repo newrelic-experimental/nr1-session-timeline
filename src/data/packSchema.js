@@ -57,6 +57,8 @@ export const schema = [
     children: [
       {
         name: 'eventType',
+        display: 'dropdown',
+        source: 'timelineEventTypes',
         mandatory: true,
         modifiable: true,
         desc:

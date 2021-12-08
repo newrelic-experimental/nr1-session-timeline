@@ -1,5 +1,6 @@
 import FormBlock from './FormBlock'
 import FormInput from './FormInput'
+import FormSelect from './FormSelect'
 
 const getSchema = (schema, key) => {
   if (Array.isArray(schema))
@@ -19,6 +20,10 @@ export const createComponent = (schema, key, value, path) => {
           values={value}
           type={schemaItem.display}
         />
+      )
+    else if (schemaItem.display === 'dropdown')
+      return (
+        <FormSelect path={schemaPath} schemaItem={schemaItem} value={value} />
       )
     else
       return (
