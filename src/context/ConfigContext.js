@@ -60,6 +60,10 @@ export class ConfigProvider extends React.Component {
 
   defaultConfig = entity => defaults.find(d => d.type === entity.domain)
 
+  getConfigValue = path => {
+    return jsonpointer.get(this.state.config, '/' + path)
+  }
+
   onChangeConfigItem = (path, value) => {
     const config = cloneDeep(this.state.config)
     jsonpointer.set(config, '/' + path, value)
@@ -123,6 +127,7 @@ export class ConfigProvider extends React.Component {
           changeConfig: this.onChangeConfigItem,
           addConfigItem: this.onAddConfigItem,
           deleteConfigItem: this.onDeleteConfigItem,
+          lookupValue: this.getConfigValue,
         }}
       >
         {children}
@@ -148,6 +153,7 @@ export const withConfigContext = WrappedComponent => props => {
         changeConfig,
         addConfigItem,
         deleteConfigItem,
+        lookupValue,
       }) => (
         <WrappedComponent
           configLoading={configLoading}
@@ -160,6 +166,7 @@ export const withConfigContext = WrappedComponent => props => {
           changeConfig={changeConfig}
           addConfigItem={addConfigItem}
           deleteConfigItem={deleteConfigItem}
+          lookupValue={lookupValue}
           {...props}
         />
       )}
