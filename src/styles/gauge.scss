@@ -9,7 +9,7 @@
 }
 
 .gaugeHeader {
-  // margin-bottom: 16px;
+  margin: 0.5rem 0;
 }
 
 .Gauge {
@@ -105,6 +105,6 @@
 
 .Gauge-legend-item {
   &:hover {
-    cursor: pointer
+    cursor: pointer;
   }
 }

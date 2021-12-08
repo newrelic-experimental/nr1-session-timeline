@@ -1,3 +1,6 @@
+const dayjs = require('dayjs')
+const relativeTime = require('dayjs/plugin/relativeTime')
+
 export const formatSinceAndCompare = timeRange => {
   const { begin_time, end_time, duration } = timeRange
   let clauses = { timeRange }
@@ -16,4 +19,20 @@ export const formatSinceAndCompare = timeRange => {
   }
 
   return clauses
+}
+
+export const formatForDisplay = timeRange => {
+  const { begin_time, end_time, duration } = timeRange
+
+  if (duration) {
+    dayjs.extend(relativeTime)
+    const formatted = dayjs().to(dayjs().subtract(duration, 'ms'))
+    return `Since ${formatted}`
+  } else if (begin_time && end_time) {
+    return `Since ${dayjs(begin_time).format('MMM DD hh:mm')} Until ${dayjs(
+      end_time
+    ).format('MMM DD hh:mm')}`
+  } else {
+    return 'Since 60 minutes ago'
+  }
 }

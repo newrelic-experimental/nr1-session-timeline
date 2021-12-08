@@ -47,7 +47,7 @@ const groups = [
     name: 'AJAX',
     eventDisplay: {
       class: 'timeline-item-type-ajax',
-      icon: Icon.TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__DOWNSTREAM_CONNECTION,
+      icon: Icon.TYPE.INTERFACE__ARROW__ARROW_VERTICAL,
       label: 'Ajax',
       color: '#a752d5',
     },

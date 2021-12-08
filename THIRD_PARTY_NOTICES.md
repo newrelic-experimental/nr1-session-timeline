@@ -14,6 +14,9 @@ code, the source code can be found at [https://github.com/newrelic-experimental/
 
 **[dependencies](#dependencies)**
 
+* [lodash.clonedeep](#lodashclonedeep)
+* [lodash.sortby](#lodashsortby)
+* [lodash.startcase](#lodashstartcase)
 * [moment](#moment)
 * [prop-types](#prop-types)
 * [react-dom](#react-dom)
@@ -35,9 +38,174 @@ code, the source code can be found at [https://github.com/newrelic-experimental/
 
 ## dependencies
 
+### lodash.clonedeep
+
+This product includes source derived from [lodash.clonedeep](https://github.com/lodash/lodash) ([v4.5.0](https://github.com/lodash/lodash/tree/v4.5.0)), distributed under the [MIT License](https://github.com/lodash/lodash/blob/v4.5.0/LICENSE):
+
+```
+Copyright jQuery Foundation and other contributors <https://jquery.org/>
+
+Based on Underscore.js, copyright Jeremy Ashkenas,
+DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+
+This software consists of voluntary contributions made by many
+individuals. For exact contribution history, see the revision history
+available at https://github.com/lodash/lodash
+
+The following license applies to all parts of this software except as
+documented below:
+
+====
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+====
+
+Copyright and related rights for sample code are waived via CC0. Sample
+code is defined as all source code displayed within the prose of the
+documentation.
+
+CC0: http://creativecommons.org/publicdomain/zero/1.0/
+
+====
+
+Files located in the node_modules and vendor directories are externally
+maintained libraries used by this software which have their own
+licenses; we recommend you read them, as their terms may differ from the
+terms above.
+
+```
+
+### lodash.sortby
+
+This product includes source derived from [lodash.sortby](https://github.com/lodash/lodash) ([v4.7.0](https://github.com/lodash/lodash/tree/v4.7.0)), distributed under the [MIT License](https://github.com/lodash/lodash/blob/v4.7.0/LICENSE):
+
+```
+Copyright jQuery Foundation and other contributors <https://jquery.org/>
+
+Based on Underscore.js, copyright Jeremy Ashkenas,
+DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+
+This software consists of voluntary contributions made by many
+individuals. For exact contribution history, see the revision history
+available at https://github.com/lodash/lodash
+
+The following license applies to all parts of this software except as
+documented below:
+
+====
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+====
+
+Copyright and related rights for sample code are waived via CC0. Sample
+code is defined as all source code displayed within the prose of the
+documentation.
+
+CC0: http://creativecommons.org/publicdomain/zero/1.0/
+
+====
+
+Files located in the node_modules and vendor directories are externally
+maintained libraries used by this software which have their own
+licenses; we recommend you read them, as their terms may differ from the
+terms above.
+
+```
+
+### lodash.startcase
+
+This product includes source derived from [lodash.startcase](https://github.com/lodash/lodash) ([v4.4.0](https://github.com/lodash/lodash/tree/v4.4.0)), distributed under the [MIT License](https://github.com/lodash/lodash/blob/v4.4.0/LICENSE):
+
+```
+Copyright jQuery Foundation and other contributors <https://jquery.org/>
+
+Based on Underscore.js, copyright Jeremy Ashkenas,
+DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+
+This software consists of voluntary contributions made by many
+individuals. For exact contribution history, see the revision history
+available at https://github.com/lodash/lodash
+
+The following license applies to all parts of this software except as
+documented below:
+
+====
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+====
+
+Copyright and related rights for sample code are waived via CC0. Sample
+code is defined as all source code displayed within the prose of the
+documentation.
+
+CC0: http://creativecommons.org/publicdomain/zero/1.0/
+
+====
+
+Files located in the node_modules and vendor directories are externally
+maintained libraries used by this software which have their own
+licenses; we recommend you read them, as their terms may differ from the
+terms above.
+
+```
+
 ### moment
 
-This product includes source derived from [moment](https://github.com/moment/moment) ([v2.28.0](https://github.com/moment/moment/tree/v2.28.0)), distributed under the [MIT License](https://github.com/moment/moment/blob/v2.28.0/LICENSE):
+This product includes source derived from [moment](https://github.com/moment/moment) ([v2.29.1](https://github.com/moment/moment/tree/v2.29.1)), distributed under the [MIT License](https://github.com/moment/moment/blob/v2.29.1/LICENSE):
 
 ```
 Copyright (c) JS Foundation and other contributors
@@ -96,7 +264,7 @@ SOFTWARE.
 
 ### react-dom
 
-This product includes source derived from [react-dom](https://github.com/facebook/react) ([v16.13.1](https://github.com/facebook/react/tree/v16.13.1)), distributed under the [MIT License](https://github.com/facebook/react/blob/v16.13.1/LICENSE):
+This product includes source derived from [react-dom](https://github.com/facebook/react) ([v16.14.0](https://github.com/facebook/react/tree/v16.14.0)), distributed under the [MIT License](https://github.com/facebook/react/blob/v16.14.0/LICENSE):
 
 ```
 MIT License
@@ -141,7 +309,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ### react
 
-This product includes source derived from [react](https://github.com/facebook/react) ([v16.13.1](https://github.com/facebook/react/tree/v16.13.1)), distributed under the [MIT License](https://github.com/facebook/react/blob/v16.13.1/LICENSE):
+This product includes source derived from [react](https://github.com/facebook/react) ([v16.14.0](https://github.com/facebook/react/tree/v16.14.0)), distributed under the [MIT License](https://github.com/facebook/react/blob/v16.14.0/LICENSE):
 
 ```
 MIT License
@@ -202,7 +370,7 @@ SOFTWARE.
 
 ### @semantic-release/git
 
-This product includes source derived from [@semantic-release/git](https://github.com/semantic-release/git) ([v9.0.0](https://github.com/semantic-release/git/tree/v9.0.0)), distributed under the [MIT License](https://github.com/semantic-release/git/blob/v9.0.0/LICENSE):
+This product includes source derived from [@semantic-release/git](https://github.com/semantic-release/git) ([v9.0.1](https://github.com/semantic-release/git/tree/v9.0.1)), distributed under the [MIT License](https://github.com/semantic-release/git/blob/v9.0.1/LICENSE):
 
 ```
 MIT License
@@ -277,7 +445,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ### eslint-config-prettier
 
-This product includes source derived from [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) ([v6.11.0](https://github.com/prettier/eslint-config-prettier/tree/v6.11.0)), distributed under the [MIT License](https://github.com/prettier/eslint-config-prettier/blob/v6.11.0/LICENSE):
+This product includes source derived from [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) ([v6.15.0](https://github.com/prettier/eslint-config-prettier/tree/v6.15.0)), distributed under the [MIT License](https://github.com/prettier/eslint-config-prettier/blob/v6.15.0/LICENSE):
 
 ```
 The MIT License (MIT)
@@ -306,7 +474,7 @@ THE SOFTWARE.
 
 ### eslint-plugin-prettier
 
-This product includes source derived from [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) ([v3.1.4](https://github.com/prettier/eslint-plugin-prettier/tree/v3.1.4)), distributed under the [MIT License](https://github.com/prettier/eslint-plugin-prettier/blob/v3.1.4/LICENSE.md):
+This product includes source derived from [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) ([v3.4.1](https://github.com/prettier/eslint-plugin-prettier/tree/v3.4.1)), distributed under the [MIT License](https://github.com/prettier/eslint-plugin-prettier/blob/v3.4.1/LICENSE.md):
 
 ```
 # The MIT License (MIT)
@@ -338,7 +506,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ### eslint-plugin-react
 
-This product includes source derived from [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) ([v7.20.6](https://github.com/yannickcr/eslint-plugin-react/tree/v7.20.6)), distributed under the [MIT License](https://github.com/yannickcr/eslint-plugin-react/blob/v7.20.6/LICENSE):
+This product includes source derived from [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) ([v7.27.1](https://github.com/yannickcr/eslint-plugin-react/tree/v7.27.1)), distributed under the [MIT License](https://github.com/yannickcr/eslint-plugin-react/blob/v7.27.1/LICENSE):
 
 ```
 The MIT License (MIT)
