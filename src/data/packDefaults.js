@@ -39,22 +39,22 @@ export default [
         eventType: 'BrowserInteraction',
         thresholds: [
           {
-            categoryAttribute: 'category',
-            categoryValue: 'Initial page load',
             attribute: 'firstContentfulPaint',
             threshold: 1.8,
-          },
-          {
             categoryAttribute: 'category',
             categoryValue: 'Initial page load',
-            attribute: 'timeToDomComplete',
-            threshold: 3,
           },
           {
+            attribute: 'timeToDomComplete',
+            threshold: 3,
             categoryAttribute: 'category',
-            categoryValue: 'Route Change',
+            categoryValue: 'Initial page load',
+          },
+          {
             attribute: 'duration',
             threshold: 1,
+            categoryAttribute: 'category',
+            categoryValue: 'Route Change',
           },
         ],
       },
