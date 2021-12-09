@@ -30,11 +30,7 @@ export default class Wrapper extends React.Component {
                           return <BlockText>{error.message}</BlockText>
                         }
 
-                        if (
-                          data.entities &&
-                          data.entities[0] &&
-                          data.entities[0].guid
-                        ) {
+                        if (data.entities[0]?.guid) {
                           return (
                             <ConfigProvider
                               entityGuid={nerdletUrlState.entityGuid}
@@ -47,15 +43,24 @@ export default class Wrapper extends React.Component {
                           )
                         } else {
                           return (
-                            <div className="message">
-                              <HeadingText>
-                                Session Timeline is not available
+                            <div className="empty-state">
+                              <HeadingText className="empty-state-header">
+                                Session Timeline is not enabled
                               </HeadingText>
-                              <BlockText>
-                                You have access to this entity, but Session
-                                Timeline has not been enabled for Browser
-                                entities in this account. Please see your
-                                Nerdpack Manager to request access.
+                              <BlockText className="empty-state-desc">
+                                Session Timeline has not been enabled for
+                                entities in this account.
+                              </BlockText>
+                              <BlockText className="empty-state-desc">
+                                To enable, please contact your NR Admin, or
+                                confirm that the Session Timeline nerdpack was{' '}
+                                <a
+                                  href="https://developer.newrelic.com/build-apps/publish-deploy/publish/"
+                                  target="_blank"
+                                >
+                                  published
+                                </a>{' '}
+                                to the correct account profile.
                               </BlockText>
                             </div>
                           )

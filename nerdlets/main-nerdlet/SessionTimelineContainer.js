@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeadingText, Spinner, navigation } from 'nr1'
+import { HeadingText, Spinner, navigation, nerdlet } from 'nr1'
 import startCase from 'lodash.startcase'
 import ConfigurationContainer from '../../src/components/configuration/ConfigurationContainer'
 import SearchBarContainer from '../../src/components/search-bar/SearchBarContainer'
@@ -15,8 +15,18 @@ class SessionTimelineContainer extends React.PureComponent {
     sessionDate: '',
   }
 
+  componentDidMount() {
+    const { filter } = this.props.nerdletUrlState
+
+    if (filter) this.setState({ filter })
+  }
+
   onSelectFilter = filter => {
-    this.setState({ filter })
+    this.setState({ filter }, () => {
+      nerdlet.setUrlState({
+        filter: filter,
+      })
+    })
   }
 
   onClearFilter = () => {
