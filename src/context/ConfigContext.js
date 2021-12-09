@@ -13,6 +13,7 @@ export class ConfigProvider extends React.Component {
     goldenMetricQueries: [],
     entity: undefined,
     firstTime: true,
+    editMode: false,
   }
 
   async componentDidMount() {
@@ -43,8 +44,10 @@ export class ConfigProvider extends React.Component {
       const entity = data?.entities?.[0]
       let config = await readDocument(entityGuid)
       let firstTime = false
+      let editMode = false
       if (!config) {
         firstTime = true
+        editMode = true
         config = this.defaultConfig(entity)
       }
 
@@ -54,6 +57,7 @@ export class ConfigProvider extends React.Component {
         config,
         configLoading: false,
         firstTime,
+        editMode,
       })
     }
   }
@@ -93,12 +97,23 @@ export class ConfigProvider extends React.Component {
     this.setState({ config })
   }
 
+  onEditConfig = () => {
+    this.setState({ editMode: true })
+  }
+
+  onCancelEditConfig = () => {
+    this.setState({ editMode: false })
+  }
+
   onSaveConfig = async () => {
     const { entity, config } = this.state
     await writeDocument(entity.guid, config)
-    this.setState({ config, configLoading: true, firstTime: false }, () => {
-      this.setState({ configLoading: false })
-    })
+    this.setState(
+      { config, configLoading: true, firstTime: false, editMode: false },
+      () => {
+        this.setState({ configLoading: false })
+      }
+    )
   }
 
   onDeleteConfig = async () => {
@@ -109,6 +124,7 @@ export class ConfigProvider extends React.Component {
         config: this.defaultConfig(entity),
         configLoading: true,
         firstTime: true,
+        editMode: true,
       },
       () => {
         this.setState({ configLoading: false })
@@ -122,9 +138,11 @@ export class ConfigProvider extends React.Component {
       <ConfigContext.Provider
         value={{
           ...this.state,
+          editConfig: this.onEditConfig,
+          cancelEditConfig: this.onCancelEditConfig,
           saveConfig: this.onSaveConfig,
           deleteConfig: this.onDeleteConfig,
-          changeConfig: this.onChangeConfigItem,
+          changeConfigItem: this.onChangeConfigItem,
           addConfigItem: this.onAddConfigItem,
           deleteConfigItem: this.onDeleteConfigItem,
           lookupValue: this.getConfigValue,
@@ -146,11 +164,14 @@ export const withConfigContext = WrappedComponent => props => {
         configLoading,
         config,
         firstTime,
+        editMode,
         goldenMetricQueries,
         entity,
+        editConfig,
+        cancelEditConfig,
         saveConfig,
         deleteConfig,
-        changeConfig,
+        changeConfigItem,
         addConfigItem,
         deleteConfigItem,
         lookupValue,
@@ -159,11 +180,14 @@ export const withConfigContext = WrappedComponent => props => {
           configLoading={configLoading}
           config={config}
           firstTime={firstTime}
+          editMode={editMode}
           goldenMetricQueries={goldenMetricQueries}
           entity={entity}
+          editConfig={editConfig}
+          cancelEditConfig={cancelEditConfig}
           saveConfig={saveConfig}
           deleteConfig={deleteConfig}
-          changeConfig={changeConfig}
+          changeConfigItem={changeConfigItem}
           addConfigItem={addConfigItem}
           deleteConfigItem={deleteConfigItem}
           lookupValue={lookupValue}

@@ -16,6 +16,16 @@
   flex-direction: column;
 }
 
+.config-form__header-edit {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+
+  & button {
+    max-height: 32px;
+  }
+}
+
 .config-form__item {
   display: inline-block;
   padding: 0.5rem;
