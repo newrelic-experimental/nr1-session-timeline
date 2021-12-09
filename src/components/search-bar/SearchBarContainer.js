@@ -128,18 +128,13 @@ class SearchBarContainer extends React.Component {
     })
   }
 
-  onConfigClick = () => {
-    console.info('config clicked!')
-  }
-
   render() {
     const { loading, results, searchTerm, selectedItem } = this.state
     const {
       config: { searchAttribute },
-      deleteConfig,
+      editConfig,
     } = this.props
 
-    console.info('searchBar props', this.props)
     return (
       <div className="search">
         <div className="search__bar">
@@ -185,10 +180,6 @@ class SearchBarContainer extends React.Component {
         )}
 
         <div className="button-row">
-          <Button type={Button.TYPE.NORMAL} onClick={deleteConfig}>
-            Delete Config
-          </Button>
-
           <Tooltip
             text="Change the app configuration"
             placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
@@ -196,7 +187,7 @@ class SearchBarContainer extends React.Component {
             <Button
               type={Button.TYPE.NORMAL}
               iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
-              onClick={this.onConfigClick}
+              onClick={editConfig}
             />
           </Tooltip>
         </div>

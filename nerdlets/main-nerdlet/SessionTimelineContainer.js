@@ -50,13 +50,14 @@ class SessionTimelineContainer extends React.PureComponent {
       entity,
       timeRange,
       firstTime,
+      editMode,
       config,
       configLoading: loading,
     } = this.props
     const { filter } = this.state
 
     if (loading) return <Spinner />
-    if (!loading && firstTime) {
+    if (!loading && editMode) {
       return (
         <div className="main__container">
           <ConfigurationContainer />

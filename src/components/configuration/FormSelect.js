@@ -4,7 +4,13 @@ import { transformCamelCaseForDisplay } from '../../utils/text-formatter'
 import { withConfigContext } from '../../context/ConfigContext'
 import FormInput from './FormInput'
 
-const FormSelect = ({ path, schemaItem, value, lookupValue, changeConfig }) => {
+const FormSelect = ({
+  path,
+  schemaItem,
+  value,
+  lookupValue,
+  changeConfigItem,
+}) => {
   const selectItems = lookupValue(schemaItem.source)
   return (
     <Tooltip
@@ -14,7 +20,7 @@ const FormSelect = ({ path, schemaItem, value, lookupValue, changeConfig }) => {
       {selectItems ? (
         <Select
           value={value}
-          onChange={(event, value) => changeConfig(path, value)}
+          onChange={(event, value) => changeConfigItem(path, value)}
           label={
             schemaItem.title
               ? schemaItem.title
