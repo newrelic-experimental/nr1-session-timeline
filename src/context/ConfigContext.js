@@ -107,7 +107,12 @@ export class ConfigProvider extends React.Component {
 
   onCancelEditConfig = () => {
     const config = cloneDeep(this.state.preEditConfig)
-    this.setState({ editMode: false, config, preEditConfig: {} })
+    this.setState({
+      editMode: false,
+      config,
+      preEditConfig: {},
+      configValid: true,
+    })
   }
 
   isValid = (path, entry) => {
