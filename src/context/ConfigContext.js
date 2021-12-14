@@ -110,10 +110,11 @@ export class ConfigProvider extends React.Component {
   isValid = (path, entry) => {
     let valid = true
 
-    if (entry.mandatory) {
-      const value = this.getConfigValue(path + entry.name)
-      if (!value) valid = false
-    }
+    const value = this.getConfigValue(path + entry.name)
+
+    if (entry.mandatory) if (!value) valid = false
+
+    if (valid && value) if (entry.typeCheck) valid = entry.typeCheck(value)
 
     return valid
   }

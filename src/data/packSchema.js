@@ -83,6 +83,7 @@ export const schema = [
             mandatory: true,
             mandatoryMessage: 'Requires numeric value',
             modifiable: true,
+            typeCheck: val => !isNaN(val),
             desc:
               'The numeric value the attribute will be evaluated against. Attributes that exceed the value will be considered in violation.',
           },

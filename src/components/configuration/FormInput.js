@@ -14,7 +14,8 @@ const FormInput = ({ path, schemaItem, value, changeConfigItem }) => {
         defaultValue={value}
         onChange={e => changeConfigItem(path, e.target.value)}
         invalid={
-          schemaItem.mandatory && !value
+          (schemaItem.mandatory && !value) ||
+          (schemaItem.typeCheck && !schemaItem.typeCheck(value))
             ? schemaItem.mandatoryMessage || DEFAULT_REQUIRED_MESSAGE
             : ''
         }
