@@ -73,6 +73,7 @@ export const schema = [
           {
             name: 'attribute',
             mandatory: true,
+            mandatoryMessage: 'Requires string value',
             modifiable: true,
             desc:
               'The event attribute whose value will be compared against the threshold. E.g. duration',
@@ -80,6 +81,7 @@ export const schema = [
           {
             name: 'threshold',
             mandatory: true,
+            mandatoryMessage: 'Requires numeric value',
             modifiable: true,
             desc:
               'The numeric value the attribute will be evaluated against. Attributes that exceed the value will be considered in violation.',
