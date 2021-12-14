@@ -11,6 +11,7 @@ export class ConfigProvider extends React.Component {
   state = {
     configLoading: true,
     config: {},
+    preEditConfig: {},
     configValid: true,
     goldenMetricQueries: [],
     entity: undefined,
@@ -100,11 +101,13 @@ export class ConfigProvider extends React.Component {
   }
 
   onEditConfig = () => {
-    this.setState({ editMode: true })
+    const preEditConfig = cloneDeep(this.state.config)
+    this.setState({ editMode: true, preEditConfig })
   }
 
   onCancelEditConfig = () => {
-    this.setState({ editMode: false })
+    const config = cloneDeep(this.state.preEditConfig)
+    this.setState({ editMode: false, config, preEditConfig: {} })
   }
 
   isValid = (path, entry) => {
@@ -153,6 +156,7 @@ export class ConfigProvider extends React.Component {
       this.setState(
         {
           config,
+          preEditConfig: {},
           configLoading: true,
           firstTime: false,
           editMode: false,
@@ -171,6 +175,7 @@ export class ConfigProvider extends React.Component {
     this.setState(
       {
         config: this.defaultConfig(entity),
+        preEditConfig: {},
         configLoading: true,
         configValid: true,
         firstTime: true,
