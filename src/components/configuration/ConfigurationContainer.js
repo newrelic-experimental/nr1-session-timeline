@@ -1,5 +1,5 @@
 import React from 'react'
-import { BlockText, Button, Tooltip } from 'nr1'
+import { BlockText, Button, Tooltip, Icon } from 'nr1'
 import SectionHeader from '../section-header/SectionHeader'
 import { withConfigContext } from '../../context/ConfigContext'
 import { schema } from '../../data/packSchema'
@@ -10,6 +10,7 @@ class ConfigurationContainer extends React.PureComponent {
     const {
       saveConfig,
       config,
+      configValid,
       firstTime,
       deleteConfig,
       cancelEditConfig,
@@ -62,7 +63,17 @@ class ConfigurationContainer extends React.PureComponent {
             </Tooltip>
           </div>
         )}
-        <div className="config-form__container">{formContents}</div>
+        <div className="config-form__container">
+          {!configValid && (
+            <div className="config-form__invalid">
+              <Icon
+                type={Icon.TYPE.INTERFACE__OPERATIONS__REMOVE__V_ALTERNATE}
+              />
+              Please complete all required fields.
+            </div>
+          )}
+          {formContents}
+        </div>
         <div className="button-row">
           <Button onClick={saveConfig} type={Button.TYPE.PRIMARY}>
             {firstTime ? 'Continue' : 'Save'}

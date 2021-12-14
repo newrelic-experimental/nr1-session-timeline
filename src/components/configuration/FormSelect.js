@@ -21,6 +21,9 @@ const FormSelect = ({
         <Select
           value={value}
           onChange={(event, value) => changeConfigItem(path, value)}
+          invalid={
+            schemaItem.mandatory && !value ? 'Please select a value' : ''
+          }
           label={
             schemaItem.title
               ? schemaItem.title
@@ -30,6 +33,7 @@ const FormSelect = ({
             schemaItem.mandatory ? 'form-mandatory' : ''
           }`}
         >
+          <SelectItem value="">Choose One</SelectItem>
           {selectItems.map(item => (
             <SelectItem value={item}>{item}</SelectItem>
           ))}

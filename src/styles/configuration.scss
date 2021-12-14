@@ -16,6 +16,12 @@
   flex-direction: column;
 }
 
+.config-form__invalid {
+  font-size: 0.9rem;
+  color: $invalid-color;
+  padding: 0.5rem;
+}
+
 .config-form__header-edit {
   display: flex;
   justify-content: space-between;
@@ -79,8 +85,9 @@
 .form-mandatory {
   &:before {
     content: '*';
-    color: #bf0016;
-    padding-right: 0.1rem;
+    color: $invalid-color;
+    padding-right: 0.25rem;
+    font-size: 0.75rem;
   }
 }
 
