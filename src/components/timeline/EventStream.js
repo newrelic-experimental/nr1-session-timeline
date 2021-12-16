@@ -104,6 +104,8 @@ export default class EventStream extends React.Component {
             break
           }
         }
+        if (!legendItem)
+          legendItem = legend.find(item => item.group.name === 'GENERAL')
 
         const date = new Date(event.timestamp)
         let open =
