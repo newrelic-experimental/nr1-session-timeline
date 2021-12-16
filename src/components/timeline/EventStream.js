@@ -1,8 +1,7 @@
 import React from 'react'
 import { Spinner, Button, Icon, Stack, StackItem } from 'nr1'
-import Moment from 'react-moment'
+import dayjs from 'dayjs'
 import startCase from 'lodash.startcase'
-import { withConfigContext } from '../../context/ConfigContext'
 
 export default class EventStream extends React.Component {
   state = {
@@ -123,10 +122,10 @@ export default class EventStream extends React.Component {
             >
               <div className="timeline-item-timestamp">
                 <span className="timeline-timestamp-date">
-                  <Moment format="MM/DD/YYYY" date={date} />
+                  {dayjs(date).format('MM/DD/YYYY')}
                 </span>
                 <span className="timeline-timestamp-time">
-                  <Moment format="h:mm:ss.SSS a" date={date} />
+                  {dayjs(date).format('H:mm:ss.SSS')}
                 </span>
               </div>
               <div className="timeline-item-dot"></div>
@@ -207,5 +206,3 @@ export default class EventStream extends React.Component {
     )
   }
 }
-
-// export default withConfigContext(EventStream)
