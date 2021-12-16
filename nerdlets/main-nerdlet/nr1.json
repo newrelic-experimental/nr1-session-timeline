@@ -4,6 +4,9 @@
   "displayName": "Session Timeline",
   "description": "",
   "context": {
-    "entities": [{ "domain": "BROWSER", "type": "APPLICATION" }]
+    "entities": [
+      { "domain": "BROWSER", "type": "APPLICATION" },
+      { "domain": "MOBILE", "type": "APPLICATION" }
+    ]
   }
 }
