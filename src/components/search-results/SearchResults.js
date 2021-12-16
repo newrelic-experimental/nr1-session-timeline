@@ -122,7 +122,6 @@ class SearchResults extends React.Component {
       entity: { accountId },
       selected,
       duration,
-      timeRange,
       config: { groupingAttribute, searchAttribute, rootEvent: event },
     } = this.props
     const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) `
@@ -134,7 +133,7 @@ class SearchResults extends React.Component {
           <div className="search-results">
             <SectionHeader
               header={`Sessions for ${selected} (click to view timeline)`}
-              subheader={formatForDisplay(timeRange)}
+              subheader="Per day"
             />
             <div className="search-results__table">
               <NrqlQuery accountId={accountId} query={query}>

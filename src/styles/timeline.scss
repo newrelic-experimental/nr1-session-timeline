@@ -93,6 +93,10 @@
   background-color: #bdf2c6;
 }
 
+.timeline-item-type-exception .timeline-item-symbol:after {
+  background-color: #f0efab;
+}
+
 .timeline-item-type-general .timeline-item-symbol-icon {
   display: none;
 }

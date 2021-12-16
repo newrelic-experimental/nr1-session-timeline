@@ -8,10 +8,10 @@ export const schema = [
   },
   {
     name: 'searchAttribute',
-    title: 'User Identifier',
+    title: 'Identifier',
     mandatory: true,
     modifiable: true,
-    desc: `This is the value used to locate a user's data. It should be something that uniquely identifies the user, such as an email or a userId. This is not part of the custom dataset collected by New Relic's agents, so you may need to add instrumentation in order to collect it.`,
+    desc: `This is the value used to locate a desired data set. It should be something that uniquely identifies the data, such as an email or a userId. This will likely not be part of the custom dataset collected by New Relic's agents, so you may need to add instrumentation in order to collect it.`,
   },
   {
     name: 'rootEvent',

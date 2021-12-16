@@ -60,4 +60,56 @@ export default [
       },
     ],
   },
+  {
+    type: 'MOBILE',
+    searchAttribute: 'sessionId',
+    rootEvent: 'Mobile',
+    groupingAttribute: 'sessionId',
+    linkingAttribute: '',
+    timelineEventTypes: [
+      'MobileSession',
+      'MobileBreadcrumb',
+      'MobileCrash',
+      'MobileRequest',
+      'MobileRequestError',
+      'MobileHandledException',
+    ],
+    eventTitleAttributes: [
+      {
+        name: 'MobileSession',
+        primary: 'category',
+        truncateStart: false,
+      },
+      {
+        name: 'MobileBreadcrumb',
+        primary: 'name',
+        truncateStart: true,
+      },
+      {
+        name: 'MobileCrash',
+        primary: 'crashMessage',
+        secondary: 'crashLocation',
+        truncateStart: true,
+      },
+      {
+        name: 'MobileRequest',
+        primary: 'requestUrl',
+        secondary: 'requestPath',
+        truncateStart: true,
+      },
+      {
+        name: 'MobileRequestError',
+        primary: 'networkError',
+        secondary: 'requestUrl',
+        truncateStart: true,
+      },
+      {
+        name: 'MobileHandledException',
+        primary: 'exceptionMessage',
+        secondary: 'exceptionName',
+        truncateStart: true,
+      },
+    ],
+    eventThresholds: [],
+  },
 ]
