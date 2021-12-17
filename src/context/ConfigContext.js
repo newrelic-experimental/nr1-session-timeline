@@ -54,6 +54,12 @@ export class ConfigProvider extends React.Component {
         config = this.defaultConfig(entity)
       }
 
+      // display the top-level attributes in their order of entry in the schema
+      config = schema.reduce((acc, s) => {
+        if (s.modifiable) acc[s.name] = config[s.name]
+        return acc
+      }, {})
+
       this.setState({
         goldenMetricQueries,
         entity,
@@ -124,6 +130,7 @@ export class ConfigProvider extends React.Component {
 
     if (valid && value) if (entry.typeCheck) valid = entry.typeCheck(value)
 
+    if (!valid) console.error('invalid config entry: ', entry, value)
     return valid
   }
 
