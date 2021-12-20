@@ -13,6 +13,7 @@ const FormInput = ({ path, schemaItem, value, changeConfigItem }) => {
       <TextField
         defaultValue={value}
         onChange={e => changeConfigItem(path, e.target.value)}
+        required={schemaItem.mandatory}
         invalid={
           (schemaItem.mandatory && !value) ||
           (schemaItem.typeCheck && !schemaItem.typeCheck(value))
@@ -24,9 +25,7 @@ const FormInput = ({ path, schemaItem, value, changeConfigItem }) => {
             ? schemaItem.title
             : transformCamelCaseForDisplay(schemaItem.name)
         }
-        className={`config-form__item ${
-          schemaItem.mandatory ? 'form-mandatory' : ''
-        }`}
+        className="config-form__item"
       />
     </Tooltip>
   )
