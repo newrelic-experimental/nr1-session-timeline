@@ -15,8 +15,10 @@ export const schema = [
   },
   {
     name: 'rootEvent',
+    display: 'dropdown',
+    source: 'timelineEventTypes',
     mandatory: true,
-    modifiable: false,
+    modifiable: true,
     desc:
       'The root event type that will be evaluted for events matching the searchAttribute',
   },
@@ -42,10 +44,43 @@ export const schema = [
   },
   {
     name: 'eventTitleAttributes',
+    title: 'Event Display Titles',
     mandatory: false,
-    modifiable: false,
+    modifiable: true,
+    display: 'line',
     desc:
       'Attributes that will be included in the title of the timeline event segment',
+    children: [
+      {
+        name: 'name',
+        title: 'Event Type',
+        display: 'dropdown',
+        source: 'timelineEventTypes',
+        mandatory: true,
+        modifiable: true,
+        desc: 'The event type that this attribute belongs to',
+      },
+      {
+        name: 'primary',
+        mandatory: true,
+        modifiable: true,
+        desc: 'The attribute to show in the event timeline listing.',
+      },
+      {
+        name: 'secondary',
+        mandatory: false,
+        modifiable: true,
+        desc:
+          'The attribute to show in the event timeline listing if the primary attribute has no value.',
+      },
+      {
+        name: 'truncateStart',
+        mandatory: false,
+        modifiable: true,
+        desc:
+          'Longer values will be truncated - set this flag to true if you want the start of the value to be truncated; false if you want the end to be truncated.',
+      },
+    ],
   },
   {
     name: 'eventThresholds',
