@@ -20,7 +20,7 @@ export const schema = [
     mandatory: true,
     modifiable: true,
     desc:
-      'The root event type that will be evaluted for events matching the searchAttribute',
+      'The root event type that will be evaluted for events matching the Identifier',
   },
   {
     name: 'groupingAttribute',
@@ -39,17 +39,18 @@ export const schema = [
   {
     name: 'timelineEventTypes',
     mandatory: true,
-    modifiable: false,
+    modifiable: true,
+    display: 'selectable-list',
     desc: 'The related event types that will be included in the timeline',
   },
   {
     name: 'eventTitleAttributes',
-    title: 'Event Display Titles',
+    title: 'Timeline Event Titles',
     mandatory: false,
     modifiable: true,
     display: 'line',
     desc:
-      'Attributes that will be included in the title of the timeline event segment',
+      'Attributes that will be shown in the title of the timeline event segment. Configure one per event type.',
     children: [
       {
         name: 'name',
@@ -101,7 +102,7 @@ export const schema = [
       },
       {
         name: 'thresholds',
-        mandatory: true,
+        mandatory: false,
         modifiable: true,
         display: 'line',
         children: [

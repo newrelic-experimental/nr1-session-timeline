@@ -34,7 +34,7 @@ const FormSelect = ({
         >
           <SelectItem value="">Choose One</SelectItem>
           {selectItems.map(item => (
-            <SelectItem value={item}>{item}</SelectItem>
+            <SelectItem value={item.name}>{item.name}</SelectItem>
           ))}
         </Select>
       ) : (

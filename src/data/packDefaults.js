@@ -1,26 +1,28 @@
 export default [
   {
     type: 'BROWSER',
-    searchAttribute: 'username',
-    rootEvent: 'BrowserInteraction',
+    searchAttribute: 'session',
+    rootEvent: 'PageView', //'BrowserInteraction',
     groupingAttribute: 'session',
     linkingAttribute: '',
     timelineEventTypes: [
-      'BrowserInteraction',
-      'AjaxRequest',
-      'JavaScriptError',
-      'BrowserTiming',
+      { name: 'PageView', selected: true },
+      { name: 'BrowserInteraction', selected: true },
+      { name: 'AjaxRequest', selected: true },
+      { name: 'JavaScriptError', selected: true },
+      { name: 'BrowserTiming', selected: true },
     ],
     eventTitleAttributes: [
       {
-        name: 'BrowserInteraction',
-        primary: 'actionText',
-        secondary: 'browserInteractionName',
+        name: 'PageView',
+        primary: 'pageUrl',
+        secondary: '',
         truncateStart: true,
       },
       {
         name: 'AjaxRequest',
         primary: 'requestUrl',
+        secondary: '',
         truncateStart: true,
       },
       {
@@ -32,29 +34,13 @@ export default [
     ],
     eventThresholds: [
       {
-        eventType: 'AjaxRequest',
-        thresholds: [{ attribute: 'timeToSettle', threshold: 10 }],
-      },
-      {
-        eventType: 'BrowserInteraction',
+        eventType: 'PageView',
         thresholds: [
           {
             attribute: 'firstContentfulPaint',
+            categoryAttribute: '',
+            categoryValue: '',
             threshold: 1.8,
-            categoryAttribute: 'category',
-            categoryValue: 'Initial page load',
-          },
-          {
-            attribute: 'timeToDomComplete',
-            threshold: 3,
-            categoryAttribute: 'category',
-            categoryValue: 'Initial page load',
-          },
-          {
-            attribute: 'duration',
-            threshold: 1,
-            categoryAttribute: 'category',
-            categoryValue: 'Route Change',
           },
         ],
       },
