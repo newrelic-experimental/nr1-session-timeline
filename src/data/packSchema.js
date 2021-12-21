@@ -42,6 +42,7 @@ export const schema = [
     modifiable: true,
     display: 'selectable-list',
     desc: 'The related event types that will be included in the timeline',
+    validCheck: values => values.some(({ selected }) => selected === true),
   },
   {
     name: 'eventTitleAttributes',
@@ -119,7 +120,7 @@ export const schema = [
             mandatory: true,
             mandatoryMessage: 'Requires numeric value',
             modifiable: true,
-            typeCheck: val => !isNaN(val),
+            validCheck: val => !isNaN(val),
             desc:
               'The numeric value the attribute will be evaluated against. Attributes that exceed the value will be considered in violation.',
           },
