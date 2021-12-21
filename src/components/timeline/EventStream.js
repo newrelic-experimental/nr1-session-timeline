@@ -42,14 +42,15 @@ export default class EventStream extends React.Component {
     const {
       config: { eventTitleAttributes },
     } = this.props
-    const { primary, secondary, truncateStart } = eventTitleAttributes.filter(
+    const title = eventTitleAttributes.find(
       attr => attr.name === event.eventType
-    )[0]
+    )
 
-    let value = !event[primary] ? event[secondary] : event[primary]
-    value = this.truncateTitle(value, truncateStart)
-
-    return value
+    if (title)
+      return this.truncateTitle(
+        event[title.primary] || event[title.secondary],
+        title.truncateStart || false
+      )
   }
 
   truncateTitle = (original, truncateStart) => {

@@ -54,6 +54,12 @@ export class ConfigProvider extends React.Component {
         config = this.defaultConfig(entity)
       }
 
+      // display the top-level attributes in their order of entry in the schema
+      config = schema.reduce((acc, s) => {
+        acc[s.name] = config[s.name]
+        return acc
+      }, {})
+
       this.setState({
         goldenMetricQueries,
         entity,
@@ -74,7 +80,7 @@ export class ConfigProvider extends React.Component {
   onChangeConfigItem = (path, value) => {
     const config = cloneDeep(this.state.config)
     jsonpointer.set(config, '/' + path, value)
-    this.setState({ config })
+    this.setState({ config, configValid: true })
   }
 
   getEmptyItem = schema => {
@@ -122,8 +128,9 @@ export class ConfigProvider extends React.Component {
 
     if (entry.mandatory) if (!value) valid = false
 
-    if (valid && value) if (entry.typeCheck) valid = entry.typeCheck(value)
+    if (valid && value) if (entry.validCheck) valid = entry.validCheck(value)
 
+    if (!valid) console.error('invalid config entry: ', entry, value)
     return valid
   }
 

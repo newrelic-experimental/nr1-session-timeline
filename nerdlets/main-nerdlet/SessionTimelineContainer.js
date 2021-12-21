@@ -59,7 +59,6 @@ class SessionTimelineContainer extends React.PureComponent {
     const {
       entity,
       timeRange,
-      firstTime,
       editMode,
       config,
       configLoading: loading,
@@ -85,6 +84,7 @@ class SessionTimelineContainer extends React.PureComponent {
               duration={formatSinceAndCompare(timeRange)}
               selectFilter={this.onSelectFilter}
               clearFilter={this.onClearFilter}
+              savedSelectedItem={filter}
             />
           </div>
 

@@ -1,6 +1,7 @@
 import FormBlock from './FormBlock'
 import FormInput from './FormInput'
 import FormSelect from './FormSelect'
+import FormList from './FormList'
 
 const getSchema = (schema, key) => {
   if (Array.isArray(schema))
@@ -12,22 +13,29 @@ export const createComponent = (schema, key, value, path) => {
   const schemaItem = getSchema(schema, key)
   if (schemaItem) {
     const schemaPath = path ? path : key
-    if (schemaItem.display === 'block' || schemaItem.display === 'line')
-      return (
-        <FormBlock
-          path={schemaPath}
-          schema={schemaItem}
-          values={value}
-          type={schemaItem.display}
-        />
-      )
-    else if (schemaItem.display === 'dropdown')
-      return (
-        <FormSelect path={schemaPath} schemaItem={schemaItem} value={value} />
-      )
-    else
-      return (
-        <FormInput path={schemaPath} schemaItem={schemaItem} value={value} />
-      )
+    switch (schemaItem.display) {
+      case 'block':
+      case 'line':
+        return (
+          <FormBlock
+            path={schemaPath}
+            schema={schemaItem}
+            values={value}
+            type={schemaItem.display}
+          />
+        )
+      case 'dropdown':
+        return (
+          <FormSelect path={schemaPath} schemaItem={schemaItem} value={value} />
+        )
+      case 'selectable-list':
+        return (
+          <FormList path={schemaPath} schemaItem={schemaItem} value={value} />
+        )
+      default:
+        return (
+          <FormInput path={schemaPath} schemaItem={schemaItem} value={value} />
+        )
+    }
   } else return null
 }

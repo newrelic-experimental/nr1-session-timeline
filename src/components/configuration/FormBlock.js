@@ -37,7 +37,13 @@ const FormBlock = ({
   })
 
   return (
-    <div>
+    <div
+      className={
+        type === 'block'
+          ? 'config-form__block-container'
+          : 'config-form__line-container'
+      }
+    >
       <Tooltip placementType={Tooltip.PLACEMENT_TYPE.RIGHT} text={schema.desc}>
         <div
           className={`config-form__label ${

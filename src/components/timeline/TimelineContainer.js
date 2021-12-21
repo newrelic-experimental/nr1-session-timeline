@@ -25,15 +25,18 @@ export default class TimelineContainer extends React.Component {
         config: { timelineEventTypes },
       } = this.props
 
-      if (timelineEventTypes) {
+      const selectedEventTypes = timelineEventTypes.filter(
+        event => event.selected
+      )
+      if (selectedEventTypes) {
         const linkingAttributeClause = await this.getLinkingClause()
         let data = []
         let warnings = false
         let warningCount = 0
 
-        for (let eventType of timelineEventTypes) {
+        for (let eventType of selectedEventTypes) {
           const { result, totalWarnings } = await this.getData(
-            eventType,
+            eventType.name,
             linkingAttributeClause
           )
           data = data.concat(result)

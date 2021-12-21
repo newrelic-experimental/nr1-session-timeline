@@ -15,10 +15,12 @@ export const schema = [
   },
   {
     name: 'rootEvent',
+    display: 'dropdown',
+    source: 'timelineEventTypes',
     mandatory: true,
-    modifiable: false,
+    modifiable: true,
     desc:
-      'The root event type that will be evaluted for events matching the searchAttribute',
+      'The root event type that will be evaluted for events matching the Identifier',
   },
   {
     name: 'groupingAttribute',
@@ -37,15 +39,50 @@ export const schema = [
   {
     name: 'timelineEventTypes',
     mandatory: true,
-    modifiable: false,
+    modifiable: true,
+    display: 'selectable-list',
     desc: 'The related event types that will be included in the timeline',
+    validCheck: values => values.some(({ selected }) => selected === true),
   },
   {
     name: 'eventTitleAttributes',
+    title: 'Timeline Event Titles',
     mandatory: false,
-    modifiable: false,
+    modifiable: true,
+    display: 'line',
     desc:
-      'Attributes that will be included in the title of the timeline event segment',
+      'Attributes that will be shown in the title of the timeline event segment. Configure one per event type.',
+    children: [
+      {
+        name: 'name',
+        title: 'Event Type',
+        display: 'dropdown',
+        source: 'timelineEventTypes',
+        mandatory: true,
+        modifiable: true,
+        desc: 'The event type that this attribute belongs to',
+      },
+      {
+        name: 'primary',
+        mandatory: true,
+        modifiable: true,
+        desc: 'The attribute to show in the event timeline listing.',
+      },
+      {
+        name: 'secondary',
+        mandatory: false,
+        modifiable: true,
+        desc:
+          'The attribute to show in the event timeline listing if the primary attribute has no value.',
+      },
+      {
+        name: 'truncateStart',
+        mandatory: false,
+        modifiable: true,
+        desc:
+          'Longer values will be truncated - set this flag to true if you want the start of the value to be truncated; false if you want the end to be truncated.',
+      },
+    ],
   },
   {
     name: 'eventThresholds',
@@ -66,7 +103,7 @@ export const schema = [
       },
       {
         name: 'thresholds',
-        mandatory: true,
+        mandatory: false,
         modifiable: true,
         display: 'line',
         children: [
@@ -83,7 +120,7 @@ export const schema = [
             mandatory: true,
             mandatoryMessage: 'Requires numeric value',
             modifiable: true,
-            typeCheck: val => !isNaN(val),
+            validCheck: val => !isNaN(val),
             desc:
               'The numeric value the attribute will be evaluated against. Attributes that exceed the value will be considered in violation.',
           },

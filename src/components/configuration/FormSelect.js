@@ -19,8 +19,10 @@ const FormSelect = ({
     >
       {selectItems ? (
         <Select
+          className="config-form__item"
           value={value}
           onChange={(event, value) => changeConfigItem(path, value)}
+          required={schemaItem.mandatory}
           invalid={
             schemaItem.mandatory && !value ? 'Please select a value' : ''
           }
@@ -29,13 +31,10 @@ const FormSelect = ({
               ? schemaItem.title
               : transformCamelCaseForDisplay(schemaItem.name)
           }
-          className={`config-form__item ${
-            schemaItem.mandatory ? 'form-mandatory' : ''
-          }`}
         >
           <SelectItem value="">Choose One</SelectItem>
           {selectItems.map(item => (
-            <SelectItem value={item}>{item}</SelectItem>
+            <SelectItem value={item.name}>{item.name}</SelectItem>
           ))}
         </Select>
       ) : (

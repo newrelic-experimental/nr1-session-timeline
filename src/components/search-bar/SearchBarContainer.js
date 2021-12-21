@@ -21,6 +21,11 @@ class SearchBarContainer extends React.Component {
     selectedItem: '',
   }
 
+  componentDidMount() {
+    const { savedSelectedItem } = this.props
+    if (savedSelectedItem) this.setState({ selectedItem: savedSelectedItem })
+  }
+
   loadData = async searchTerm => {
     const {
       entity,
