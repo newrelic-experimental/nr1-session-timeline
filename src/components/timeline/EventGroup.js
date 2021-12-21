@@ -153,7 +153,7 @@ const groups = [
       color: '#bdf2c6',
       label: 'Custom Interaction',
     },
-    actionNames: ['Custom Interaction'],
+    actionNames: ['Custom Interaction', 'BrowserTiming'],
   },
 ]
 

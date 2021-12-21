@@ -1,12 +1,12 @@
 export default [
   {
     type: 'BROWSER',
-    searchAttribute: 'session',
-    rootEvent: 'PageView', //'BrowserInteraction',
+    searchAttribute: 'username',
+    rootEvent: 'BrowserInteraction',
     groupingAttribute: 'session',
     linkingAttribute: '',
     timelineEventTypes: [
-      { name: 'PageView', selected: true },
+      { name: 'PageView', selected: false },
       { name: 'BrowserInteraction', selected: true },
       { name: 'AjaxRequest', selected: true },
       { name: 'JavaScriptError', selected: true },
@@ -14,9 +14,9 @@ export default [
     ],
     eventTitleAttributes: [
       {
-        name: 'PageView',
-        primary: 'pageUrl',
-        secondary: '',
+        name: 'BrowserInteraction',
+        primary: 'actionText',
+        secondary: 'browserInteractionName',
         truncateStart: true,
       },
       {
@@ -31,16 +31,28 @@ export default [
         secondary: 'errorClass',
         truncateStart: false,
       },
+      {
+        name: 'BrowserTiming',
+        primary: 'browserTimingName',
+        secondary: 'browserInteractionName',
+        truncateStart: true,
+      },
     ],
     eventThresholds: [
       {
-        eventType: 'PageView',
+        eventType: 'BrowserInteraction',
         thresholds: [
           {
             attribute: 'firstContentfulPaint',
-            categoryAttribute: '',
-            categoryValue: '',
             threshold: 1.8,
+            categoryAttribute: 'category',
+            categoryValue: 'Initial page load',
+          },
+          {
+            attribute: 'timeToDomComplete',
+            threshold: 3,
+            categoryAttribute: 'category',
+            categoryValue: 'Initial page load',
           },
         ],
       },
@@ -53,22 +65,25 @@ export default [
     groupingAttribute: 'sessionId',
     linkingAttribute: '',
     timelineEventTypes: [
-      'MobileSession',
-      'MobileBreadcrumb',
-      'MobileCrash',
-      'MobileRequest',
-      'MobileRequestError',
-      'MobileHandledException',
+      { name: 'Mobile', selected: false },
+      { name: 'MobileSession', selected: true },
+      { name: 'MobileBreadcrumb', selected: true },
+      { name: 'MobileCrash', selected: true },
+      { name: 'MobileRequest', selected: true },
+      { name: 'MobileRequestError', selected: true },
+      { name: 'MobileHandledException', selected: true },
     ],
     eventTitleAttributes: [
       {
         name: 'MobileSession',
         primary: 'category',
+        secondary: '',
         truncateStart: false,
       },
       {
         name: 'MobileBreadcrumb',
         primary: 'name',
+        secondary: '',
         truncateStart: true,
       },
       {

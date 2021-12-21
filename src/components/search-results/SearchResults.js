@@ -13,7 +13,6 @@ import {
 } from 'nr1'
 import { withConfigContext } from '../../context/ConfigContext'
 import SectionHeader from '../section-header/SectionHeader'
-import { formatForDisplay } from '../../utils/date-formatter'
 const dayjs = require('dayjs')
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 
@@ -124,7 +123,7 @@ class SearchResults extends React.Component {
       duration,
       config: { groupingAttribute, searchAttribute, rootEvent: event },
     } = this.props
-    const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) `
+    const query = `FROM ${event} SELECT uniques(${groupingAttribute}) WHERE ${searchAttribute}='${selected}' ${duration.since} FACET dateOf(timestamp) LIMIT MAX `
 
     return (
       <React.Fragment>

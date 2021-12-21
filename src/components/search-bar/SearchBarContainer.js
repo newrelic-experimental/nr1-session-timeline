@@ -147,12 +147,8 @@ class SearchBarContainer extends React.Component {
             className="search__header"
             type={HeadingText.TYPE.HEADING_4}
           >
-            Search for {startCase(searchAttribute)}
+            Search for {startCase(searchAttribute)}:
           </HeadingText>
-          <Icon
-            className="search__icon"
-            type={Icon.TYPE.INTERFACE__CHEVRON__CHEVRON_RIGHT__WEIGHT_BOLD}
-          />
           {!selectedItem && (
             <TextField
               className="search__input"
