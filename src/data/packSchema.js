@@ -41,7 +41,8 @@ export const schema = [
     mandatory: true,
     modifiable: true,
     display: 'selectable-list',
-    desc: 'The related event types that will be included in the timeline',
+    desc:
+      'The related event types that will be included in the timeline event stream view',
     validCheck: values => values.some(({ selected }) => selected === true),
   },
   {

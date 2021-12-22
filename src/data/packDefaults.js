@@ -1,7 +1,7 @@
 export default [
   {
     type: 'BROWSER',
-    searchAttribute: 'username',
+    searchAttribute: '',
     rootEvent: 'BrowserInteraction',
     groupingAttribute: 'session',
     linkingAttribute: '',
@@ -60,7 +60,7 @@ export default [
   },
   {
     type: 'MOBILE',
-    searchAttribute: 'sessionId',
+    searchAttribute: '',
     rootEvent: 'Mobile',
     groupingAttribute: 'sessionId',
     linkingAttribute: '',
