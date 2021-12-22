@@ -12,11 +12,11 @@ export class ConfigProvider extends React.Component {
     configLoading: true,
     config: {},
     preEditConfig: {},
-    configValid: true,
     goldenMetricQueries: [],
     entity: undefined,
     firstTime: true,
     editMode: false,
+    errorMsg: '',
   }
 
   async componentDidMount() {
@@ -80,7 +80,7 @@ export class ConfigProvider extends React.Component {
   onChangeConfigItem = (path, value) => {
     const config = cloneDeep(this.state.config)
     jsonpointer.set(config, '/' + path, value)
-    this.setState({ config, configValid: true })
+    this.setState({ config, errorMsg: '' })
   }
 
   getEmptyItem = schema => {
@@ -117,7 +117,7 @@ export class ConfigProvider extends React.Component {
       editMode: false,
       config,
       preEditConfig: {},
-      configValid: true,
+      errorMsg: '',
     })
   }
 
@@ -158,26 +158,32 @@ export class ConfigProvider extends React.Component {
 
   onSaveConfig = async () => {
     if (!this.validateConfig()) {
-      this.setState({ configValid: false })
+      this.setState({ errorMsg: 'Please complete all required fields.' })
     } else {
       const {
         entity: { guid },
         config,
       } = this.state
-      await writeDocument(guid, config)
-      this.setState(
-        {
-          config,
-          preEditConfig: {},
-          configLoading: true,
-          firstTime: false,
-          editMode: false,
-          configValid: true,
-        },
-        () => {
-          this.setState({ configLoading: false })
-        }
-      )
+      try {
+        await writeDocument(guid, config)
+        this.setState(
+          {
+            config,
+            preEditConfig: {},
+            configLoading: true,
+            firstTime: false,
+            editMode: false,
+            errorMsg: '',
+          },
+          () => {
+            this.setState({ configLoading: false })
+          }
+        )
+      } catch (error) {
+        this.setState({
+          errorMsg: `We were unable to save the config changes: [${error}]`,
+        })
+      }
     }
   }
 
@@ -189,7 +195,7 @@ export class ConfigProvider extends React.Component {
         config: this.defaultConfig(entity),
         preEditConfig: {},
         configLoading: true,
-        configValid: true,
+        errorMsg: '',
         firstTime: true,
         editMode: true,
       },
@@ -230,9 +236,9 @@ export const withConfigContext = WrappedComponent => props => {
       {({
         configLoading,
         config,
-        configValid,
         firstTime,
         editMode,
+        errorMsg,
         goldenMetricQueries,
         entity,
         editConfig,
@@ -247,9 +253,9 @@ export const withConfigContext = WrappedComponent => props => {
         <WrappedComponent
           configLoading={configLoading}
           config={config}
-          configValid={configValid}
           firstTime={firstTime}
           editMode={editMode}
+          errorMsg={errorMsg}
           goldenMetricQueries={goldenMetricQueries}
           entity={entity}
           editConfig={editConfig}

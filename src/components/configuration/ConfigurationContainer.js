@@ -10,8 +10,8 @@ class ConfigurationContainer extends React.PureComponent {
     const {
       saveConfig,
       config,
-      configValid,
       firstTime,
+      errorMsg,
       deleteConfig,
       cancelEditConfig,
     } = this.props
@@ -38,8 +38,7 @@ class ConfigurationContainer extends React.PureComponent {
               className="init-config__desc"
             >
               We have provided some default values - at a minimun, make sure the
-              User Identifier matches the user attribute you are capturing in
-              your data.
+              Identifier matches the attribute you are capturing in your data.
             </BlockText>
 
             <BlockText
@@ -64,12 +63,12 @@ class ConfigurationContainer extends React.PureComponent {
           </div>
         )}
         <div className="config-form__container">
-          {!configValid && (
+          {errorMsg && (
             <div className="config-form__invalid">
               <Icon
                 type={Icon.TYPE.INTERFACE__OPERATIONS__REMOVE__V_ALTERNATE}
               />
-              Please complete all required fields.
+              {errorMsg}
             </div>
           )}
           {formContents}

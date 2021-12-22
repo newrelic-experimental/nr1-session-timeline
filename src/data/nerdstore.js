@@ -29,6 +29,7 @@ export const writeDocument = async (guid, payload) => {
     return data
   } catch (error) {
     console.error('nerdstore.writeDocument', error)
+    throw error
   }
 }
 
