@@ -1,14 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import startCase from 'lodash.startcase'
-import {
-  TextField,
-  NerdGraphQuery,
-  Icon,
-  HeadingText,
-  Button,
-  Tooltip,
-} from 'nr1'
+import { TextField, NerdGraphQuery, HeadingText, Button, Tooltip } from 'nr1'
 import SearchBarDrawer from './SearchBarDrawer'
 import { withConfigContext } from '../../context/ConfigContext'
 
