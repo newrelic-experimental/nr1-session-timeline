@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import jsonpointer from 'jsonpointer'
 import cloneDeep from 'lodash.clonedeep'
 import { EntityByGuidQuery, ngql } from 'nr1'
@@ -231,7 +232,7 @@ export const ConfigConsumer = ConfigContext.Consumer
 export default ConfigContext
 
 export const withConfigContext = WrappedComponent => props => {
-  return (
+  const wrapped = (
     <ConfigConsumer>
       {({
         configLoading,
@@ -271,4 +272,22 @@ export const withConfigContext = WrappedComponent => props => {
       )}
     </ConfigConsumer>
   )
+  wrapped.propTypes = {
+    configLoading: PropTypes.bool,
+    config: PropTypes.object.isRequired,
+    firstTime: PropTypes.bool,
+    editMode: PropTypes.bool,
+    errorMsg: PropTypes.string,
+    goldenMetricQueries: PropTypes.array,
+    entity: PropTypes.object,
+    editConfig: PropTypes.func,
+    cancelEditConfig: PropTypes.func,
+    saveConfig: PropTypes.func,
+    deleteConfig: PropTypes.func,
+    changeConfigItem: PropTypes.func,
+    addConfigItem: PropTypes.func,
+    deleteConfigItem: PropTypes.func,
+    lookupValue: PropTypes.func,
+  }
+  return wrapped
 }
