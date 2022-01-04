@@ -1,14 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import startCase from 'lodash.startcase'
-import {
-  TextField,
-  NerdGraphQuery,
-  Icon,
-  HeadingText,
-  Button,
-  Tooltip,
-} from 'nr1'
+import { TextField, NerdGraphQuery, HeadingText, Button, Tooltip } from 'nr1'
 import SearchBarDrawer from './SearchBarDrawer'
 import { withConfigContext } from '../../context/ConfigContext'
 
@@ -36,10 +29,8 @@ class SearchBarContainer extends React.Component {
 
     const query = `{
       actor {
-        account(id: ${entity.accountId}) {
-          nrql(query: "${nrql}") {
-            results
-          }
+        nrql(accounts: ${entity.accountId}, query: "${nrql}") {
+          results
         }
       }
     }`
@@ -57,8 +48,7 @@ class SearchBarContainer extends React.Component {
     }
 
     if (rawData) {
-      results =
-        rawData.actor.account.nrql.results[0][`uniques.${searchAttribute}`]
+      results = rawData.actor.nrql.results[0][`uniques.${searchAttribute}`]
     }
 
     return results
