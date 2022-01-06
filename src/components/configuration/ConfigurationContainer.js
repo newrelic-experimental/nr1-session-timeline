@@ -40,8 +40,8 @@ class ConfigurationContainer extends React.PureComponent {
                 type={BlockText.TYPE.PARAGRAPH}
                 className="init-config__desc"
               >
-                Please complete the form below to start using the User Session
-                Analysis app.
+                Please complete the form below to start using the Session
+                Timeline app.
               </BlockText>
 
               <BlockText
