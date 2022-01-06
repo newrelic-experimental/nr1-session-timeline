@@ -9,7 +9,7 @@
   - [First time set up](#set-up)
   - [Search for a user](#search)
   - [User summary view](#summary)
-  - [Timeline view](#session)
+  - [Timeline view](#timeline)
 - [Advanced Usage](#advanced)
   - [Configuration](#config)
   - [Changing defaults](#defaults)
@@ -61,7 +61,7 @@ Follow these instructions to [publish](https://developer.newrelic.com/build-apps
 - [First time set up](#set-up)
 - [Search for a user](#search)
 - [User summary view](#summary)
-- [Timeline view](#session)
+- [Timeline view](#timeline)
 
 ### Access <a id="access"></a>
 
