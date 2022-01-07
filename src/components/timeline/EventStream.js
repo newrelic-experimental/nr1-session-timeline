@@ -1,8 +1,7 @@
 import React from 'react'
 import { Spinner, Button, Icon, Stack, StackItem } from 'nr1'
-import Moment from 'react-moment'
-import { startCase } from 'lodash'
-import config from '../../config/config'
+import dayjs from 'dayjs'
+import startCase from 'lodash.startcase'
 
 export default class EventStream extends React.Component {
   state = {
@@ -40,15 +39,18 @@ export default class EventStream extends React.Component {
   }
 
   getTitleDetails = event => {
-    const { eventTitleAttributes } = config
-    const { primary, secondary, truncateStart } = eventTitleAttributes.filter(
+    const {
+      config: { eventTitleAttributes },
+    } = this.props
+    const title = eventTitleAttributes.find(
       attr => attr.name === event.eventType
-    )[0]
+    )
 
-    let value = !event[primary] ? event[secondary] : event[primary]
-    value = this.truncateTitle(value, truncateStart)
-
-    return value
+    if (title)
+      return this.truncateTitle(
+        event[title.primary] || event[title.secondary],
+        title.truncateStart || false
+      )
   }
 
   truncateTitle = (original, truncateStart) => {
@@ -75,8 +77,10 @@ export default class EventStream extends React.Component {
           {conditions.map((c, idx) => {
             return (
               <li key={idx} className="warning-condition">
-                {c.attribute} &gt; {c.threshold} 
-                <span className="warning-condition__actual-value ">[this event: {c.actual}]</span>
+                {c.attribute} &gt; {c.threshold}
+                <span className="warning-condition__actual-value ">
+                  [this event: {c.actual}]
+                </span>
               </li>
             )
           })}
@@ -100,6 +104,8 @@ export default class EventStream extends React.Component {
             break
           }
         }
+        if (!legendItem)
+          legendItem = legend.find(item => item.group.name === 'GENERAL')
 
         const date = new Date(event.timestamp)
         let open =
@@ -117,10 +123,10 @@ export default class EventStream extends React.Component {
             >
               <div className="timeline-item-timestamp">
                 <span className="timeline-timestamp-date">
-                  <Moment format="MM/DD/YYYY" date={date} />
+                  {dayjs(date).format('MM/DD/YYYY')}
                 </span>
                 <span className="timeline-timestamp-time">
-                  <Moment format="h:mm:ss.SSS a" date={date} />
+                  {dayjs(date).format('H:mm:ss.SSS')}
                 </span>
               </div>
               <div className="timeline-item-dot"></div>

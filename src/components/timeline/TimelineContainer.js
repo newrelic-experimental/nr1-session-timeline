@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NrqlQuery, HeadingText, Stack, StackItem, Spinner, Button } from 'nr1'
-import { sortBy, startCase } from 'lodash'
+import sortBy from 'lodash.sortby'
+import cloneDeep from 'lodash.clonedeep'
 import EventStream from './EventStream'
 import Timeline from './Timeline'
 import eventGroup from './EventGroup'
-import config from '../../config/config'
+import { withConfigContext } from '../../context/ConfigContext'
 
 export default class TimelineContainer extends React.Component {
   state = {
@@ -17,16 +18,53 @@ export default class TimelineContainer extends React.Component {
     showWarningsOnly: false,
   }
 
+  async componentDidUpdate() {
+    const { loading } = this.state
+    if (loading) {
+      const {
+        config: { timelineEventTypes },
+      } = this.props
+
+      const selectedEventTypes = timelineEventTypes.filter(
+        event => event.selected
+      )
+      if (selectedEventTypes) {
+        const linkingAttributeClause = await this.getLinkingClause()
+        let data = []
+        let warnings = false
+        let warningCount = 0
+
+        for (let eventType of selectedEventTypes) {
+          const { result, totalWarnings } = await this.getData(
+            eventType.name,
+            linkingAttributeClause
+          )
+          data = data.concat(result)
+          if (totalWarnings > 0) {
+            warnings = true
+            warningCount += totalWarnings
+          }
+        }
+
+        data = sortBy(data, 'timestamp')
+
+        const legend = this.getLegend(data)
+        this.setState({
+          sessionData: data,
+          loading: false,
+          legend,
+          warnings,
+          warningCount,
+          showWarningsOnly: false,
+        })
+      }
+    }
+  }
+
   getData = async (eventType, linkingAttributeClause) => {
-    const {
-      entity: { guid, accountId },
-      sessionDate,
-      duration,
-    } = this.props
+    const { entityGuid: guid, accountId, sessionDate, duration } = this.props
 
     const query = `SELECT * from ${eventType} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${linkingAttributeClause} ORDER BY timestamp ASC LIMIT MAX ${duration.since}`
-    console.info(`timelineDetail numChars=${query.length} queryString=${query}`)
-
     const { data } = await NrqlQuery.query({ accountId, query })
 
     let totalWarnings = 0
@@ -50,26 +88,25 @@ export default class TimelineContainer extends React.Component {
 
   getLinkingClause = async () => {
     const {
-      entity: { guid, accountId },
+      entityGuid: guid,
+      accountId,
       filter,
       session,
       sessionDate,
       duration,
+      config: {
+        rootEvent: event,
+        searchAttribute,
+        groupingAttribute,
+        linkingAttribute,
+      },
     } = this.props
-    const {
-      event,
-      searchAttribute,
-      groupingAttribute,
-      linkingAttribute,
-    } = config
 
     let attributeClause = `${groupingAttribute} = '${session}' and ${searchAttribute} = '${filter}'`
     if (linkingAttribute) {
       const query = `SELECT uniques(${linkingAttribute}) from ${event} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${groupingAttribute} = '${session}' AND ${searchAttribute} = '${filter}' LIMIT MAX ${duration.since}`
-      console.info('timelineDetail.linkingQuery', query)
 
       const { data } = await NrqlQuery.query({ accountId, query })
-      console.debug('timelineDetail.linkingQuery data', data)
 
       const links = []
       if (data && data.length > 0)
@@ -90,7 +127,9 @@ export default class TimelineContainer extends React.Component {
   }
 
   getWarningConditions = (event, eventType) => {
-    const { eventThresholds } = config
+    const {
+      config: { eventThresholds },
+    } = this.props
     const thresholds = eventThresholds.filter(
       threshold => threshold.eventType === eventType
     )
@@ -142,7 +181,7 @@ export default class TimelineContainer extends React.Component {
   }
 
   onClickLegend = legendItem => {
-    const legend = [...this.state.legend]
+    const legend = cloneDeep(this.state.legend)
 
     let hiddenCount = 0
 
@@ -176,50 +215,6 @@ export default class TimelineContainer extends React.Component {
     this.setState({ showWarningsOnly: !showWarningsOnly })
   }
 
-  async componentDidUpdate(prevProps) {
-    const { session, sessionDate } = this.props
-    const prevSession = prevProps.session
-    const prevSessionDate = prevProps.sessionDate
-
-    if (
-      session &&
-      (session !== prevSession ||
-        (session === prevSession && sessionDate != prevSessionDate))
-    ) {
-      this.setState({ loading: true })
-
-      const { timelineEventTypes } = config
-      const linkingAttributeClause = await this.getLinkingClause()
-      let data = []
-      let warnings = false
-      let warningCount = 0
-
-      for (let eventType of timelineEventTypes) {
-        const { result, totalWarnings } = await this.getData(
-          eventType,
-          linkingAttributeClause
-        )
-        data = data.concat(result)
-        if (totalWarnings > 0) {
-          warnings = true
-          warningCount += totalWarnings
-        }
-      }
-
-      data = sortBy(data, 'timestamp')
-
-      const legend = this.getLegend(data)
-      this.setState({
-        sessionData: data,
-        loading: false,
-        legend,
-        warnings,
-        warningCount,
-        showWarningsOnly: false,
-      })
-    }
-  }
-
   render() {
     const {
       sessionData,
@@ -229,8 +224,7 @@ export default class TimelineContainer extends React.Component {
       warningCount,
       showWarningsOnly,
     } = this.state
-    const { session, sessionDate, filter } = this.props
-    const { searchAttribute } = config
+    const { session, sessionDate, filter, config } = this.props
 
     return (
       <React.Fragment>
@@ -261,12 +255,12 @@ export default class TimelineContainer extends React.Component {
             horizontalType={Stack.HORIZONTAL_TYPE.CENTER}
             fullHeight
             fullWidth
+            className="timeline-container"
           >
             <StackItem className="timeline__stack-item stack__header">
               <div>
                 <HeadingText type={HeadingText.TYPE.HEADING_3}>
-                  Viewing Session {session} for {startCase(searchAttribute)}{' '}
-                  {filter} ({sessionDate})
+                  Viewing Session {session} for {filter} ({sessionDate})
                 </HeadingText>
               </div>
             </StackItem>
@@ -284,10 +278,6 @@ export default class TimelineContainer extends React.Component {
                     We found {warningCount} segment(s) that violated expected
                     performance thresholds.
                   </div>
-                  {/* <div
-                    className="timeline__warning-button"
-                    onClick={this.onToggleWarnings}
-                  > */}
                   <Button
                     className="timeline__warning-button"
                     onClick={this.onToggleWarnings}
@@ -296,7 +286,6 @@ export default class TimelineContainer extends React.Component {
                     {showWarningsOnly && 'Show all events'}
                     {!showWarningsOnly && 'Show violations only'}
                   </Button>
-                  {/* </div> */}
                 </div>
               )}
               <EventStream
@@ -304,6 +293,7 @@ export default class TimelineContainer extends React.Component {
                 loading={loading}
                 legend={legend}
                 showWarningsOnly={showWarningsOnly}
+                config={config}
               />
             </StackItem>
           </Stack>
@@ -314,9 +304,10 @@ export default class TimelineContainer extends React.Component {
 }
 
 TimelineContainer.propTypes = {
-  entity: PropTypes.object.isRequired,
   session: PropTypes.string.isRequired,
   sessionDate: PropTypes.string.isRequired,
   filter: PropTypes.string.isRequired,
   duration: PropTypes.object.isRequired,
 }
+
+// export default withConfigContext(TimelineContainer)

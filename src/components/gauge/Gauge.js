@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import _ from 'lodash'
 import { Stack, StackItem } from 'nr1'
 
 import GaugeDataLegendItem from './GaugeDataLegendItem'
@@ -109,9 +108,7 @@ export default class Gauge extends Component {
           verticalType={Stack.VERTICAL_TYPE.CENTER}
         >
           <StackItem grow>
-            <div className="grid-item__header">
-              <h4>Session Sequence of Events</h4>
-            </div>
+            <h4>Session Sequence of Events</h4>
           </StackItem>
         </Stack>
 

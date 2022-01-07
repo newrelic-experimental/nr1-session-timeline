@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { startCase } from 'lodash'
-import { TextField, NerdGraphQuery, Icon, HeadingText } from 'nr1'
+import startCase from 'lodash.startcase'
+import { TextField, NerdGraphQuery, HeadingText, Button, Tooltip } from 'nr1'
 import SearchBarDrawer from './SearchBarDrawer'
-import config from '../../config/config'
+import { withConfigContext } from '../../context/ConfigContext'
 
-export default class SearchBarContainer extends React.Component {
+class SearchBarContainer extends React.Component {
   state = {
     loading: true,
     searchTerm: '',
@@ -14,14 +14,18 @@ export default class SearchBarContainer extends React.Component {
     selectedItem: '',
   }
 
+  componentDidMount() {
+    const { savedSelectedItem } = this.props
+    if (savedSelectedItem) this.setState({ selectedItem: savedSelectedItem })
+  }
+
   loadData = async searchTerm => {
-    console.debug('searchBar.loadData')
-
-    const { entity, duration } = this.props
-    const { searchAttribute, groupingAttribute, event } = config
+    const {
+      entity,
+      duration,
+      config: { searchAttribute, groupingAttribute, rootEvent: event },
+    } = this.props
     const nrql = `FROM ${event} SELECT uniques(${searchAttribute}) WHERE entityGuid='${entity.guid}' AND ${searchAttribute} like '%${searchTerm}%' and ${groupingAttribute} is not null ${duration.since} `
-
-    console.info('searchBar.loadData nrql', nrql)
 
     const query = `{
       actor {
@@ -54,7 +58,6 @@ export default class SearchBarContainer extends React.Component {
   }
 
   loadFromCache = async searchTerm => {
-    console.debug('searchBar.loadFromCache')
     return this.state.cachedResults.filter(result =>
       result.includes(searchTerm)
     )
@@ -125,21 +128,20 @@ export default class SearchBarContainer extends React.Component {
 
   render() {
     const { loading, results, searchTerm, selectedItem } = this.state
-    const { searchAttribute } = config
+    const {
+      config: { searchAttribute },
+      editConfig,
+    } = this.props
 
     return (
       <div className="search">
-        <HeadingText
-          className="grid-item__header"
-          type={HeadingText.TYPE.HEADING_4}
-        >
-          Search for {startCase(searchAttribute)}
-        </HeadingText>
         <div className="search__bar">
-          <Icon
-            className="search__icon"
-            type={Icon.TYPE.INTERFACE__CHEVRON__CHEVRON_RIGHT__WEIGHT_BOLD}
-          />
+          <HeadingText
+            className="search__header"
+            type={HeadingText.TYPE.HEADING_4}
+          >
+            Search for {startCase(searchAttribute)}:
+          </HeadingText>
           {!selectedItem && (
             <TextField
               className="search__input"
@@ -170,6 +172,19 @@ export default class SearchBarContainer extends React.Component {
             closeOnClickOutside={this.onCloseSearchDrawer}
           />
         )}
+
+        <div className="button-row">
+          <Tooltip
+            text="Change the app configuration"
+            placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
+          >
+            <Button
+              type={Button.TYPE.NORMAL}
+              iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
+              onClick={editConfig}
+            />
+          </Tooltip>
+        </div>
       </div>
     )
   }
@@ -181,3 +196,5 @@ SearchBarContainer.propTypes = {
   clearFilter: PropTypes.func.isRequired,
   duration: PropTypes.object.isRequired,
 }
+
+export default withConfigContext(SearchBarContainer)
