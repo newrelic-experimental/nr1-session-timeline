@@ -1,20 +1,23 @@
 [![New Relic Experimental header](https://github.com/newrelic/opensource-website/raw/master/src/images/categories/Experimental.png)](https://opensource.newrelic.com/oss-category/#new-relic-experimental)
 
-- [Introduction](#intro)
-- [Use Cases](#use-cases)
-- [Pre-requisites](#pre-reqs)
-- [App Installation](#install)
-- [Basic Usage](#usage)
-  - [Accessing](#access)
-  - [First time set up](#set-up)
-  - [Search for a user](#search)
-  - [User summary view](#summary)
-  - [Timeline view](#timeline)
-- [Advanced Usage](#advanced)
-  - [Configuration](#config)
-  - [Changing defaults](#defaults)
-- [Issues and Roadmap](#issues)
-- [Security](#security)
+- [Session Timeline](#intro)
+  - [License](#license)
+  - [Use Cases](#use-cases)
+  - [Usage](#usage)
+    - [Pre-requisites](#pre-reqs)
+    - [App Installation](#install)
+    - [Basic Usage](#usage)
+      - [Accessing](#access)
+      - [First time set up](#set-up)
+      - [Search for a user](#search)
+      - [User summary view](#summary)
+      - [Timeline view](#timeline)
+    - [Advanced Usage](#advanced)
+      - [Configuration](#config)
+      - [Changing defaults](#defaults)
+- [Support](#support)
+  - [Issues and Roadmap](#issues)
+  - [Security](#security)
 
 # Introduction <a id="intro"></a>
 
@@ -29,23 +32,31 @@ Session Timeline provides a detailed understanding of the experience of an indiv
 
 ![Session Timeline Screenshot](docs/screenshots/screenshot_01.png)
 
-## Use Cases <a id="use-cases"></a>
+## Open source license <id id="license"></id>
+
+This project is distributed under the [Apache 2 license](LICENSE).
+
+This project also uses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the [third-party notices](THIRD_PARTY_NOTICES.md) document.
+
+## Usage <a id="usage"></a>
+
+### Use Cases <a id="use-cases"></a>
 
 1. Respond to a specific customer care support request
 
-   This is the most common use case for this app. Customer care support teams receive support requests about individual users - in order to resolve these requests, they need to understand exactly what happened to that user while interacting with a web site or app, and the order it happened in. This is very challenging to acheive using standard dashboards, and Session Timeline offers a fast and simple mechanism to load the sequence of events experienced by a user in a specific session.
+   Customer care support teams receive support requests about individual users - in order to resolve these requests, they need to understand exactly what happened to that user while interacting with a web site or app, and the order it happened in. Session Timeline offers a fast and simple mechanism to load the sequence of events experienced by a user in a specific session, and view the full details of each event.
 
 2. Enhance troubleshooting investigations
 
    Performance problems can often be caused by unexpected combinations of requests and user behaviours. When attempting to identify the underlying cause of a broader issue, it can be useful to dig into the details of specific interactions that encountered the problem. Session Timeline presents the entire sequence of Browser or Mobile events triggered by individual sessions, and can potentially help surface unusual and problematic patterns.
 
-## Pre-requisites <a id="pre-reqs"></a>
+### Pre-requisites <a id="pre-reqs"></a>
 
 Session Timeline requires that you have the [Browser agent](https://docs.newrelic.com/docs/browser/browser-monitoring/getting-started/introduction-browser-monitoring/) or [Mobile agent](https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile/get-started/introduction-mobile-monitoring/) deployed to your site or app.
 
 You will also need to set up your [development environment](https://developer.newrelic.com/build-apps/set-up-dev-env/) to test and deploy NR1 Apps.
 
-## App Installation <a id="install"></a>
+### App Installation <a id="install"></a>
 
 - Clone the repo
 - run `npm install`
@@ -55,7 +66,7 @@ Follow these instructions to [test locally](https://developer.newrelic.com/build
 
 Follow these instructions to [publish](https://developer.newrelic.com/build-apps/publish-deploy/publish/) the app to New Relic, and [subscribe](https://developer.newrelic.com/build-apps/publish-deploy/subscribe/) your account to use it.
 
-## Basic Usage Guide <a id="usage"></a>
+### Basic Usage Guide <a id="basic-usage"></a>
 
 - [Accessing](#access)
 - [First time set up](#set-up)
@@ -63,13 +74,13 @@ Follow these instructions to [publish](https://developer.newrelic.com/build-apps
 - [User summary view](#summary)
 - [Timeline view](#timeline)
 
-### Access <a id="access"></a>
+#### Access <a id="access"></a>
 
 Once deployed, session timeline will become an available for any of your account's browser or mobile apps. Simply navigate to the target app, and you will see Session Timeline as an option in the "More Views" menu in the left-hand pane.
 
 ![Access the app Screenshot](docs/screenshots/access_app.png)<br/>
 
-### First-time set up <a id="set-up"></a>
+#### First-time set up <a id="set-up"></a>
 
 When you first access the application for a given browser or mobile application, you will need to go through a minimal set up step. You will be presented with a configuration page that is pre-popluated with some default values specific to the type of app (Browser or Mobile).
 
@@ -81,7 +92,7 @@ See the [Configuration](#config) section for complete defintions of the app conf
 
 ![First Time Setup Screenshot](docs/screenshots/first_time.png)<br/>
 
-### Search for a user <a id="search"></a>
+#### Search for a user <a id="search"></a>
 
 Once you have completed the initial set up, Session Timeline will present you with a search page. In order to view the details of a user's experience, you need to first locate that user.
 
@@ -93,7 +104,7 @@ Note: matches are located for the time period active in the platform timepicker.
 
 ![Search For a User Screenshot](docs/screenshots/search.png)<br/>
 
-### User summary view <a id="summary"></a>
+#### User summary view <a id="summary"></a>
 
 Once you have selected a user, you will be presented with a screen showing an overview of that user's experience with the application for the active time period.
 
@@ -108,7 +119,7 @@ _A note about Browser sessions: Session Timeline relies on the [Browser agent se
 
 ![User Summary View Screenshot](docs/screenshots/summary_view.png)<br/>
 
-### Timeline view <a id="timeline"></a>
+#### Timeline view <a id="timeline"></a>
 
 The Timeline view presents the full set of events recorded in New Relic related to a selected session, for up to one day's worth of data.
 
@@ -130,9 +141,9 @@ Each event is grouped into a category based on the underlying data, and the time
 
 ![Timeline Filtering Screenshot](docs/screenshots/timeline_04.png)<br/>
 
-## Advanced Usage <a id="advanced"></a>
+### Advanced Usage <a id="advanced"></a>
 
-### Configuration <a id="config"></a>
+#### Configuration <a id="config"></a>
 
 - [Configuration scope](#scope)
 - [Reset to defaults](#defaults)
@@ -148,17 +159,17 @@ Many of the parameters used by Session Timeline can be adjusted in the Configura
 
 ![Open Configuration Screenshot](docs/screenshots/config_01.png)<br/>
 
-#### Configuration Scope <a id="scope"></a>
+##### Configuration Scope <a id="scope"></a>
 
 The configuration settings are specific to the **entity**, but are common to **all users**: if you make a change, all users in the account will be affected by that change, but they will be applied only to the active entity (not to all entities of that type).
 
-#### Reseting to defaults <a id="reset"></a>
+##### Reseting to defaults <a id="reset"></a>
 
 Click on the "Reset to Defaults" button in the configuration form to revert to the default configuration set up. Be sure this is what you want to do - it will permanently delete your existing settings for the entity, and cannot be undone. Once reset, you will be prompted to complete the [first time set up](#set-up).
 
 ![Configuration Screenshot](docs/screenshots/config_02.png)<br/>
 
-#### Attributes <a id="attributes"></a>
+##### Attributes <a id="attributes"></a>
 
 - `identifier` <a id="identifier"></a>
 
@@ -213,11 +224,11 @@ Click on the "Reset to Defaults" button in the configuration form to revert to t
 
   ![Threshold Rule Exmpale Screenshot](docs/screenshots/config_04.png)<br/>
 
-  You can translate this rule into: _Mark in violation any BrowserInteraction event where category is 'Initial Page Load' and firstContentfulPaint exceeds .5 seconds._
+  You can translate this rule into: _Mark in violation any BrowserInteraction event where category is 'Initial Page Load' and firstContentfulPaint exceeds 1.8 seconds._
 
   You can remove existing rules, or entire event type blocks, but clicking on the various garbage can icons.
 
-### Changing defaults <a id="defaults"></a>
+#### Changing defaults <a id="defaults"></a>
 
 The structure and behaviour of the configuration is defined in a javascript file called `packSchema`, found in `src/data`. It is not recommended to change the schema definitions unless you are making broader changes to app behaviour in general.
 
@@ -225,11 +236,21 @@ The default settings for Mobile and Browser are defined in a javascript file cal
 
 Note that any changes made to `packDefaults` will not overwrite the active configuration for any entities that have already gone through the first time set up.
 
+# Support <a id="support"></a>
+
+New Relic has open-sourced this project. This project is provided AS-IS WITHOUT WARRANTY OR DEDICATED SUPPORT. Issues and contributions should be reported to the project here on GitHub.
+
+We encourage you to bring your experiences and questions to the [Explorers Hub](https://discuss.newrelic.com) where our community members collaborate on solutions and new ideas.
+
 ## Issues and Roadmap <a id="issues"></a>
 
-To view a listing of enhancement requests and known bugs - or to request a new feature or report a bug - please visit the repository [issues page](https://github.com/newrelic-experimental/nr1-session-timeline/issues).
+To view a listing of enhancement requests and known bugs, please visit the repository [issues page](https://github.com/newrelic-experimental/nr1-session-timeline/issues).
 
 If any active work is ongoing in Session Timeline, the scope will be defined in the repository [projects](https://github.com/newrelic-experimental/nr1-session-timeline/projects)
+
+Contributions are encouraged! If you submit an enhancement request, we'll invite you to contribute the change yourself. Please review our [Contributors Guide](CONTRIBUTING.md).
+
+Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. If you have any questions, or to execute our corporate CLA, required if your contribution is on behalf of a company, please drop us an email at opensource@newrelic.com.
 
 ## Security <a id="security"></a>
 
