@@ -213,7 +213,7 @@ Click on the "Reset to Defaults" button in the configuration form to revert to t
 
   ![Threshold Rule Exmpale Screenshot](docs/screenshots/config_04.png)<br/>
 
-  You can translate this rule into: _Mark in violation any BrowserInteraction event where category is 'Initial Page Load' and firstContentfulPaint exceeds .5 seconds._
+  You can translate this rule into: _Mark in violation any BrowserInteraction event where category is 'Initial Page Load' and firstContentfulPaint exceeds 1.8 seconds._
 
   You can remove existing rules, or entire event type blocks, but clicking on the various garbage can icons.
 
