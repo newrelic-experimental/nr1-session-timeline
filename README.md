@@ -1,7 +1,6 @@
 [![New Relic Experimental header](https://github.com/newrelic/opensource-website/raw/master/src/images/categories/Experimental.png)](https://opensource.newrelic.com/oss-category/#new-relic-experimental)
 
 - [Session Timeline](#intro)
-  - [License](#license)
   - [Use Cases](#use-cases)
   - [Usage](#usage)
     - [Pre-requisites](#pre-reqs)
@@ -17,9 +16,11 @@
       - [Changing defaults](#defaults)
 - [Support](#support)
   - [Issues and Roadmap](#issues)
-  - [Security](#security)
+- [Contributing](#contrib)
+- [Security](#security)
+- [License](#license)
 
-# Introduction <a id="intro"></a>
+# Session Timeline <a id="intro"></a>
 
 Session Timeline provides a detailed understanding of the experience of an individual user in a browser or mobile application. The app includes:
 
@@ -32,15 +33,7 @@ Session Timeline provides a detailed understanding of the experience of an indiv
 
 ![Session Timeline Screenshot](docs/screenshots/screenshot_01.png)
 
-## Open source license <id id="license"></id>
-
-This project is distributed under the [Apache 2 license](LICENSE).
-
-This project also uses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the [third-party notices](THIRD_PARTY_NOTICES.md) document.
-
-## Usage <a id="usage"></a>
-
-### Use Cases <a id="use-cases"></a>
+## Use Cases <a id="use-cases"></a>
 
 1. Respond to a specific customer care support request
 
@@ -49,6 +42,8 @@ This project also uses source code from third-party libraries. You can find full
 2. Enhance troubleshooting investigations
 
    Performance problems can often be caused by unexpected combinations of requests and user behaviours. When attempting to identify the underlying cause of a broader issue, it can be useful to dig into the details of specific interactions that encountered the problem. Session Timeline presents the entire sequence of Browser or Mobile events triggered by individual sessions, and can potentially help surface unusual and problematic patterns.
+
+## Usage <a id="usage"></a>
 
 ### Pre-requisites <a id="pre-reqs"></a>
 
@@ -246,12 +241,20 @@ We encourage you to bring your experiences and questions to the [Explorers Hub](
 
 To view a listing of enhancement requests and known bugs, please visit the repository [issues page](https://github.com/newrelic-experimental/nr1-session-timeline/issues).
 
-If any active work is ongoing in Session Timeline, the scope will be defined in the repository [projects](https://github.com/newrelic-experimental/nr1-session-timeline/projects)
+If any active work is ongoing in Session Timeline, the scope will be defined in the repository [projects](https://github.com/newrelic-experimental/nr1-session-timeline/projects).
+
+# Contributing <a id="contrib"></a>
 
 Contributions are encouraged! If you submit an enhancement request, we'll invite you to contribute the change yourself. Please review our [Contributors Guide](CONTRIBUTING.md).
 
 Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. If you have any questions, or to execute our corporate CLA, required if your contribution is on behalf of a company, please drop us an email at opensource@newrelic.com.
 
-## Security <a id="security"></a>
+# Security <a id="security"></a>
 
 New Relic is committed to the privacy and security of our customers and their data; review our [security policy](https://github.com/newrelic-experimental/nr1-session-timeline/security/policy) for details.
+
+# License <a id="license"></a>
+
+This project is distributed under the [Apache 2 license](LICENSE).
+
+This project also uses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the [third-party notices](THIRD_PARTY_NOTICES.md) document.
