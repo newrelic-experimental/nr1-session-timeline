@@ -65,7 +65,7 @@ export default class TimelineContainer extends React.Component {
     const { entityGuid: guid, accountId, sessionDate, duration } = this.props
 
     const query = `SELECT * from ${eventType} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${linkingAttributeClause} ORDER BY timestamp ASC LIMIT MAX ${duration.since}`
-    const { data } = await NrqlQuery.query({ accountId, query })
+    const { data } = await NrqlQuery.query({ accountIds: [accountId], query })
 
     let totalWarnings = 0
     let result = []
@@ -106,7 +106,7 @@ export default class TimelineContainer extends React.Component {
     if (linkingAttribute) {
       const query = `SELECT uniques(${linkingAttribute}) from ${event} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${sessionDate}' and ${groupingAttribute} = '${session}' AND ${searchAttribute} = '${filter}' LIMIT MAX ${duration.since}`
 
-      const { data } = await NrqlQuery.query({ accountId, query })
+      const { data } = await NrqlQuery.query({ accountIds: [accountId], query })
 
       const links = []
       if (data && data.length > 0)
