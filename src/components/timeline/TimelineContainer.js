@@ -281,7 +281,6 @@ export default class TimelineContainer extends React.Component {
                   <Button
                     className="timeline__warning-button"
                     onClick={this.onToggleWarnings}
-                    type={Button.TYPE.NORMAL}
                   >
                     {showWarningsOnly && 'Show all events'}
                     {!showWarningsOnly && 'Show violations only'}

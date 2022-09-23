@@ -176,7 +176,6 @@ class SearchBarContainer extends React.Component {
             placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
           >
             <Button
-              type={Button.TYPE.NORMAL}
               iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
               onClick={editConfig}
             />
