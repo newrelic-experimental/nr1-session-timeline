@@ -102,7 +102,7 @@ class SearchResults extends React.Component {
             {goldenMetricQueries.map(q => (
               <SparklineTableRowCell
                 className="search-results__row"
-                accountId={accountId}
+                accountIds={[accountId]}
                 query={this.getGoldenMetricQuery(
                   q.query,
                   item.value,
