@@ -29,10 +29,8 @@ class SearchBarContainer extends React.Component {
 
     const query = `{
       actor {
-        account(id: ${entity.accountId}) {
-          nrql(query: "${nrql}") {
-            results
-          }
+        nrql(accounts: ${entity.accountId}, query: "${nrql}") {
+          results
         }
       }
     }`
@@ -50,8 +48,7 @@ class SearchBarContainer extends React.Component {
     }
 
     if (rawData) {
-      results =
-        rawData.actor.account.nrql.results[0][`uniques.${searchAttribute}`]
+      results = rawData.actor.nrql.results[0][`uniques.${searchAttribute}`]
     }
 
     return results
@@ -179,7 +176,6 @@ class SearchBarContainer extends React.Component {
             placementType={Tooltip.PLACEMENT_TYPE.BOTTOM}
           >
             <Button
-              type={Button.TYPE.NORMAL}
               iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__CONFIGURE}
               onClick={editConfig}
             />
