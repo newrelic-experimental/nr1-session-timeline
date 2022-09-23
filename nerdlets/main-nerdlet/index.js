@@ -57,6 +57,7 @@ export default class Wrapper extends React.Component {
                                 <a
                                   href="https://developer.newrelic.com/build-apps/publish-deploy/publish/"
                                   target="_blank"
+                                  rel="noreferrer"
                                 >
                                   published
                                 </a>{' '}

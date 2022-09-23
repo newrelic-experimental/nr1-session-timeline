@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import jsonpointer from 'jsonpointer'
 import cloneDeep from 'lodash.clonedeep'
 import { EntityByGuidQuery, ngql } from 'nr1'
 import defaults from '../data/packDefaults'
 import { schema } from '../data/packSchema'
 import { readDocument, writeDocument, deleteDocument } from '../data/nerdstore'
+import { read as readGoldenMetricQueries } from '../data/golden-metrics/golden-metrics-query'
 
 const ConfigContext = React.createContext()
 export class ConfigProvider extends React.Component {
@@ -36,15 +38,12 @@ export class ConfigProvider extends React.Component {
       `,
       })
 
-      const goldenMetricQueries = data?.entities?.[0]?.goldenMetrics?.metrics?.reduce(
-        (acc, gm) => {
-          acc.push({ title: gm.title, query: gm.query })
-          return acc
-        },
-        []
-      )
-
       const entity = data?.entities?.[0]
+      const goldenMetricQueries = readGoldenMetricQueries({
+        data,
+        type: entity.domain,
+      })
+
       let config = await readDocument(entityGuid)
       let firstTime = false
       let editMode = false
@@ -231,7 +230,7 @@ export const ConfigConsumer = ConfigContext.Consumer
 export default ConfigContext
 
 export const withConfigContext = WrappedComponent => props => {
-  return (
+  const wrapped = (
     <ConfigConsumer>
       {({
         configLoading,
@@ -271,4 +270,22 @@ export const withConfigContext = WrappedComponent => props => {
       )}
     </ConfigConsumer>
   )
+  wrapped.propTypes = {
+    configLoading: PropTypes.bool,
+    config: PropTypes.object.isRequired,
+    firstTime: PropTypes.bool,
+    editMode: PropTypes.bool,
+    errorMsg: PropTypes.string,
+    goldenMetricQueries: PropTypes.array,
+    entity: PropTypes.object,
+    editConfig: PropTypes.func,
+    cancelEditConfig: PropTypes.func,
+    saveConfig: PropTypes.func,
+    deleteConfig: PropTypes.func,
+    changeConfigItem: PropTypes.func,
+    addConfigItem: PropTypes.func,
+    deleteConfigItem: PropTypes.func,
+    lookupValue: PropTypes.func,
+  }
+  return wrapped
 }
