@@ -102,7 +102,7 @@ class SearchResults extends React.Component {
             {goldenMetricQueries.map(q => (
               <SparklineTableRowCell
                 className="search-results__row"
-                accountId={accountId}
+                accountIds={[accountId]}
                 query={this.getGoldenMetricQuery(
                   q.query,
                   item.value,
@@ -135,7 +135,7 @@ class SearchResults extends React.Component {
               subheader="Per day"
             />
             <div className="search-results__table">
-              <NrqlQuery accountId={accountId} query={query}>
+              <NrqlQuery accountIds={[accountId]} query={query}>
                 {({ data, error, loading }) => {
                   if (loading) return <Spinner fillContainer />
                   if (error) return <BlockText>{error.message}</BlockText>

@@ -18,9 +18,9 @@ class Dashboard extends React.PureComponent {
     const finalQuery = `${query} MAX WHERE entityGuid = '${guid}' AND ${searchAttribute} = '${selected}' ${since} `
     switch (type) {
       case 'billboard':
-        return <BillboardChart accountId={accountId} query={finalQuery} />
+        return <BillboardChart accountIds={[accountId]} query={finalQuery} />
       default:
-        return <LineChart accountId={accountId} query={finalQuery} />
+        return <LineChart accountIds={[accountId]} query={finalQuery} />
     }
   }
 

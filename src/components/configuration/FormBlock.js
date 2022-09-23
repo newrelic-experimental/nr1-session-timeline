@@ -28,7 +28,7 @@ const FormBlock = ({
           <Button
             onClick={() => deleteConfigItem(path, idx)}
             className={`delete-button__${type}`}
-            type={Button.TYPE.OUTLINE}
+            type={Button.TYPE.SECONDARY}
             iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__TRASH}
           />
         </Tooltip>
@@ -56,7 +56,7 @@ const FormBlock = ({
       {blockItems}
       <Button
         onClick={() => addConfigItem(path, schema)}
-        type={Button.TYPE.OUTLINE}
+        type={Button.TYPE.SECONDARY}
         sizeType={Button.SIZE_TYPE.SMALL}
         className="config-form__block_button"
       >
