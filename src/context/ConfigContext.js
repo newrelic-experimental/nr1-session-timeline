@@ -6,6 +6,7 @@ import { EntityByGuidQuery, ngql } from 'nr1'
 import defaults from '../data/packDefaults'
 import { schema } from '../data/packSchema'
 import { readDocument, writeDocument, deleteDocument } from '../data/nerdstore'
+import { read as readGoldenMetricQueries } from '../data/golden-metrics/golden-metrics-query'
 
 const ConfigContext = React.createContext()
 export class ConfigProvider extends React.Component {
@@ -37,15 +38,12 @@ export class ConfigProvider extends React.Component {
       `,
       })
 
-      const goldenMetricQueries = data?.entities?.[0]?.goldenMetrics?.metrics?.reduce(
-        (acc, gm) => {
-          acc.push({ title: gm.title, query: gm.query })
-          return acc
-        },
-        []
-      )
-
       const entity = data?.entities?.[0]
+      const goldenMetricQueries = readGoldenMetricQueries({
+        data,
+        type: entity.domain,
+      })
+
       let config = await readDocument(entityGuid)
       let firstTime = false
       let editMode = false
