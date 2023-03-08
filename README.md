@@ -79,7 +79,7 @@ Once deployed, session timeline will become an available for any of your account
 
 When you first access the application for a given browser or mobile application, you will need to go through a minimal set up step. You will be presented with a configuration page that is pre-popluated with some default values specific to the type of app (Browser or Mobile).
 
-At a minimum, you will need to specify the attribute used to locate session data. Ideally, this is a value that uniquely identifies a user, such as an email, user id or token. If you don't have a user identifier recorded in your Browser or Mobile data, it is simple to add using custom attribute ([browser](https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/setcustomattribute-browser-agent-api/)) ([mobile](https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile/maintenance/add-custom-data-new-relic-mobile/)).
+At a minimum, you will need to specify the attribute used to locate session data. Ideally, this is a value that uniquely identifies a user, such as an email, user id or token. If you don't have a user identifier recorded in your Browser or Mobile data, it is simple to add using custom attributes ([browser](https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/setcustomattribute-browser-agent-api/)) ([mobile](https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile/maintenance/add-custom-data-new-relic-mobile/)).
 
 Once the Identifier attribute is set, you can modify the remaining config values, or click the Continue button to accept the defaults and start using Session Timeline.
 
@@ -132,7 +132,7 @@ If the event segment violates a [configured](#config) performance threshold, it 
 
 ![Timeline Violation Screenshot](docs/screenshots/timeline_03.png)<br/>
 
-Each event is grouped into a category based on the underlying data, and the timeline chart represents the events based on their grouping. Clicking on the chart legend allows you to quickly filtering both the chart and the event listing to show only events for the selected categories.
+Each event is grouped into a category based on the underlying data, and the timeline chart represents the events based on their grouping. Clicking on the chart legend allows you to quickly filter both the chart and the event listing to show only events for the selected categories.
 
 ![Timeline Filtering Screenshot](docs/screenshots/timeline_04.png)<br/>
 
@@ -221,7 +221,7 @@ Click on the "Reset to Defaults" button in the configuration form to revert to t
 
   You can translate this rule into: _Mark in violation any BrowserInteraction event where category is 'Initial Page Load' and firstContentfulPaint exceeds 1.8 seconds._
 
-  You can remove existing rules, or entire event type blocks, but clicking on the various garbage can icons.
+  You can remove existing rules, or entire event type blocks, by clicking on the various garbage can icons.
 
 #### Changing defaults <a id="defaults"></a>
 
