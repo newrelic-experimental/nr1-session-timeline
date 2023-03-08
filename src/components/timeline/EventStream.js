@@ -57,7 +57,7 @@ export default class EventStream extends React.Component {
     const maxLength = 60
 
     let truncated = original
-    if (original.length > maxLength) {
+    if (original?.length > maxLength) {
       if (truncateStart)
         truncated = '...' + original.slice(original.length - maxLength)
       else truncated = original.slice(0, maxLength) + '...'
