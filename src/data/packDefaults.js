@@ -2,17 +2,27 @@ export default [
   {
     type: 'BROWSER',
     searchAttribute: '',
-    rootEvent: 'BrowserInteraction',
+    rootEvent: 'PageView',
     groupingAttribute: 'session',
     linkingAttribute: '',
     timelineEventTypes: [
-      { name: 'PageView', selected: false },
+      { name: 'PageView', selected: true },
       { name: 'BrowserInteraction', selected: true },
       { name: 'AjaxRequest', selected: true },
       { name: 'JavaScriptError', selected: true },
-      { name: 'BrowserTiming', selected: true },
+      { name: 'UserAction', selected: true },
+      { name: 'PageViewTiming', selected: true },
+      { name: 'PageAction', selected: false },
+      { name: 'BrowserTiming', selected: false },
+      { name: 'Log', selected: false },
     ],
     eventTitleAttributes: [
+      {
+        name: 'PageView',
+        primary: 'pageUrl',
+        secondary: '',
+        truncateStart: true,
+      },
       {
         name: 'BrowserInteraction',
         primary: 'actionText',
@@ -32,27 +42,62 @@ export default [
         truncateStart: false,
       },
       {
-        name: 'BrowserTiming',
-        primary: 'browserTimingName',
-        secondary: 'browserInteractionName',
+        name: 'UserAction',
+        primary: 'action',
+        secondary: '',
+        truncateStart: true,
+      },
+      {
+        name: 'PageViewTiming',
+        primary: 'timingName',
+        secondary: '',
         truncateStart: true,
       },
     ],
     eventThresholds: [
       {
-        eventType: 'BrowserInteraction',
+        eventType: 'PageViewTiming',
         thresholds: [
           {
-            attribute: 'firstContentfulPaint',
-            threshold: 1.8,
-            categoryAttribute: 'category',
-            categoryValue: 'Initial page load',
+            attribute: 'largestContentfulPaint',
+            threshold: 4,
+            categoryAttribute: 'timingName',
+            categoryValue: 'largestContentfulPaint',
           },
           {
-            attribute: 'timeToDomComplete',
-            threshold: 3,
-            categoryAttribute: 'category',
-            categoryValue: 'Initial page load',
+            attribute: 'interactionToNextPaint',
+            threshold: 0.5,
+            categoryAttribute: 'timingName',
+            categoryValue: 'interactionToNextPaint',
+          },
+          {
+            attribute: 'cumulativeLayoutShift',
+            threshold: 0.25,
+            categoryAttribute: 'timingName',
+            categoryValue: 'cumulativeLayoutShift',
+          },
+        ],
+      },
+      {
+        eventType: 'AjaxRequest',
+        thresholds: [
+          {
+            attribute: 'httpResponseCode',
+            threshold: 399,
+            categoryAttribute: '',
+            categoryValue: '',
+          },
+          {
+            attribute: 'timeToLastCallbackEnd',
+            threshold: 1,
+            categoryAttribute: '',
+            categoryValue: '',
+          },
+          {
+            attribute: 'timeToLoadEventStart',
+            threshold: 1,
+            categoryAttribute: '',
+            categoryValue: '',
           },
         ],
       },
@@ -65,15 +110,32 @@ export default [
     groupingAttribute: 'sessionId',
     linkingAttribute: '',
     timelineEventTypes: [
-      { name: 'Mobile', selected: false },
+      { name: 'Mobile', selected: true },
       { name: 'MobileSession', selected: true },
       { name: 'MobileBreadcrumb', selected: true },
       { name: 'MobileCrash', selected: true },
       { name: 'MobileRequest', selected: true },
       { name: 'MobileRequestError', selected: true },
       { name: 'MobileHandledException', selected: true },
+      { name: 'MobileApplicationExit', selected: true},
+      { name: 'PageView', selected: false },
+      { name: 'BrowserInteraction', selected: false },
+      { name: 'AjaxRequest', selected: false },
+      { name: 'JavaScriptError', selected: false },
+      { name: 'UserAction', selected: false },
+      { name: 'PageViewTiming', selected: false },
+      { name: 'PageAction', selected: false },
+      { name: 'BrowserTiming', selected: false },
+      { name: 'Log', selected: false },
+      { name: 'MobileCustomAttribute', selected: false },
     ],
     eventTitleAttributes: [
+      {
+        name: 'Mobile',
+        primary: 'name',
+        secondary: 'deviceManufacturer',
+        truncateStart: true,
+      },
       {
         name: 'MobileSession',
         primary: 'category',
@@ -110,7 +172,31 @@ export default [
         secondary: 'exceptionName',
         truncateStart: true,
       },
+      {
+        name: 'MobileApplicationExit',
+        primary: 'description',
+        secondary: '',
+        truncateStart: true,
+      },
     ],
-    eventThresholds: [],
+    eventThresholds: [
+      {
+        eventType: 'MobileRequest',
+        thresholds: [
+          {
+            attribute: 'statusCode',
+            threshold: 399,
+            categoryAttribute: '',
+            categoryValue: '',
+          },
+          {
+            attribute: 'responseTime',
+            threshold: 1,
+            categoryAttribute: '',
+            categoryValue: '',
+          }
+        ],
+      },
+    ],
   },
 ]

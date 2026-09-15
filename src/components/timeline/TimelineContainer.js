@@ -63,9 +63,9 @@ export default class TimelineContainer extends React.Component {
   }
 
   getData = async (eventType, linkingAttributeClause) => {
-    const { entityGuid: guid, accountId, groupingDate, duration } = this.props
+    const { accountId, groupingDate, duration } = this.props
 
-    const query = `SELECT * from ${eventType} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${groupingDate}' and ${linkingAttributeClause} ORDER BY timestamp ASC LIMIT MAX ${duration.since}`
+    const query = `SELECT * from ${eventType} WHERE dateOf(timestamp) = '${groupingDate}' and ${linkingAttributeClause} ORDER BY timestamp ASC LIMIT MAX ${duration.since}`
     const { data } = await NrqlQuery.query({ accountIds: [accountId], query })
 
     let totalWarnings = 0
@@ -89,23 +89,16 @@ export default class TimelineContainer extends React.Component {
 
   getLinkingClause = async () => {
     const {
-      entityGuid: guid,
       accountId,
-      filter,
       groupingValue,
       groupingDate,
       duration,
-      config: {
-        rootEvent: event,
-        searchAttribute,
-        groupingAttribute,
-        linkingAttribute,
-      },
+      config: { rootEvent: event, groupingAttribute, linkingAttribute },
     } = this.props
 
-    let attributeClause = `${groupingAttribute} = '${groupingValue}' and ${searchAttribute} = '${filter}'`
+    let attributeClause = `${groupingAttribute} = '${groupingValue}'`
     if (linkingAttribute) {
-      const query = `SELECT uniques(${linkingAttribute}) from ${event} WHERE entityGuid = '${guid}' and dateOf(timestamp) = '${groupingDate}' and ${groupingAttribute} = '${groupingValue}' AND ${searchAttribute} = '${filter}' LIMIT MAX ${duration.since}`
+      const query = `SELECT uniques(${linkingAttribute}) from ${event} WHERE dateOf(timestamp) = '${groupingDate}' and ${groupingAttribute} = '${groupingValue}' LIMIT MAX ${duration.since}`
 
       const { data } = await NrqlQuery.query({ accountIds: [accountId], query })
 

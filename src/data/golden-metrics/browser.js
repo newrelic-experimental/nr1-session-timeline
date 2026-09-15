@@ -13,7 +13,7 @@ const goldenMetricQueries = [
   },
   {
     title: 'Errors',
-    query: `select count(*) from JavaScriptError TIMESERIES `,
+    query: `select count(*) FROM AjaxRequest, JavaScriptError WHERE httpResponseCode >= 400 OR eventType() = 'JavaScriptError' TIMESERIES `,
   },
   {
     title: 'Pageload time (s)',

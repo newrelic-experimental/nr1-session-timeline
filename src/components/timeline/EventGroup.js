@@ -13,7 +13,7 @@ const groups = [
       color: '#02acfa',
       label: 'Page Load',
     },
-    actionNames: ['Initial page load', 'PageView'],
+    actionNames: ['Page load', 'PageView', 'BrowserInteraction'],
   },
   {
     name: 'MOBILE_SESSION',
@@ -30,6 +30,20 @@ const groups = [
     actionNames: ['MobileSession'],
   },
   {
+    name: 'INTERACTION',
+    eventDisplay: {
+      class: 'timeline-item-type-interaction',
+      icon: Icon.TYPE.INTERFACE__ARROW__MOVE,
+      label: 'Interaction',
+      color: '#02a0aa',
+    },
+    timelineDisplay: {
+      color: '#02a0aa',
+      label: 'Interaction',
+    },
+    actionNames: ['Mobile', 'UserAction', 'BrowserTiming'],
+  },
+  {
     name: 'BREADCRUMB',
     eventDisplay: {
       class: 'timeline-item-type-custom',
@@ -41,21 +55,35 @@ const groups = [
       color: '#bdf2c6',
       label: 'Breadcrumb',
     },
-    actionNames: ['MobileBreadcrumb'],
+    actionNames: ['MobileBreadcrumb', 'PageAction'],
   },
   {
-    name: 'DOWNLOAD',
+    name: 'LOG',
     eventDisplay: {
-      class: 'timeline-item-type-download',
-      icon: Icon.TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__DOWNSTREAM_DEPLOYMENT,
-      label: 'Download',
+      class: 'timeline-item-type-log',
+      icon: Icon.TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__LOGS,
+      label: 'Log',
+      color: '#404040',
+    },
+    timelineDisplay: {
+      color: '#404040',
+      label: 'Log',
+    },
+    actionNames: ['Log'],
+  },
+  {
+    name: 'TIMING',
+    eventDisplay: {
+      class: 'timeline-item-type-timing',
+      icon: Icon.TYPE.DATE_AND_TIME__DATE_AND_TIME__TIME,
+      label: 'Timing Event',
       color: '#01355c',
     },
     timelineDisplay: {
       color: '#add7f7',
-      label: 'Download',
+      label: 'Timing Event',
     },
-    actionNames: ['DOWNLOAD'],
+    actionNames: ['PageViewTiming'],
   },
   {
     name: 'ROUTE_CHANGE',
@@ -139,7 +167,7 @@ const groups = [
       color: '#bf0015',
       label: 'Crash',
     },
-    actionNames: ['MobileCrash'],
+    actionNames: ['MobileCrash', 'MobileApplicationExit'],
   },
   {
     name: 'CUSTOM',
@@ -153,7 +181,21 @@ const groups = [
       color: '#bdf2c6',
       label: 'Custom Interaction',
     },
-    actionNames: ['Custom Interaction', 'BrowserTiming'],
+    actionNames: ['Custom Interaction'],
+  },
+  {
+    name: 'CUSTOM_EVENT',
+    eventDisplay: {
+      class: 'timeline-item-type-custom',
+      icon: Icon.TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__STACK_TRACE,
+      label: 'Custom Event',
+      color: '#016911',
+    },
+    timelineDisplay: {
+      color: '#bdf2c6',
+      label: 'Custom Event',
+    },
+    actionNames: ['MobileCustomAttribute'],
   },
 ]
 

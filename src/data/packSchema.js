@@ -8,26 +8,28 @@ export const schema = [
   },
   {
     name: 'searchAttribute',
-    title: 'Identifier',
+    title: 'Search Attribute',
     mandatory: true,
     modifiable: true,
-    desc: `This is the value used to locate a desired data set. It should be something that uniquely identifies the data, such as an email or a userId. This will likely not be part of the custom dataset collected by New Relic's agents, so you may need to add instrumentation in order to collect it.`,
+    desc: `This is the value used to search for the desired sessions. For example an email or a userId. This may not be part of the custom dataset collected by New Relic's agents, so you may need to add instrumentation in order to collect it.`,
   },
   {
     name: 'rootEvent',
+    title: 'Search Event',
     display: 'dropdown',
     source: 'timelineEventTypes',
     mandatory: true,
     modifiable: true,
     desc:
-      'The root event type that will be evaluted for events matching the Identifier',
+      'The event type that will be used to search for sessions matching the search attribute.',
   },
   {
     name: 'groupingAttribute',
+    title: 'Grouping Attribute',
     mandatory: true,
     modifiable: true,
     desc:
-      'Matching events found in the rootEvent will be grouped according to this attribute (e.g. session for Browser events)',
+      'Matching events found in the rootEvent will be grouped according to this attribute (e.g. session for Browser, sessionId for Mobile). For mobile sessions using WebViews, the attribute needs to be the same on both Mobile and Browser so a single session can be followed across the two.',
   },
   {
     name: 'linkingAttribute',

@@ -54,7 +54,7 @@ export default class EventStream extends React.Component {
   }
 
   truncateTitle = (original, truncateStart) => {
-    const maxLength = 60
+    const maxLength = 100
 
     let truncated = original
     if (original?.length > maxLength) {

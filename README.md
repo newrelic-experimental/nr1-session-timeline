@@ -182,6 +182,8 @@ Click on the "Reset to Defaults" button in the configuration form to revert to t
 
   The `grouping attribute` is used to locate the full set of events shown in the [timeline view](#timeline). For Browser, the default `grouping attribute` is `session`. For Mobile, the default `grouping attribute` is `sessionId`.
 
+  Timeline queries are not scoped to a single entity, so if the same `grouping attribute` is populated on both your Mobile and Browser data - for example a mobile app rendering content in a WebView - a single session's timeline will include events from both. For this to work the attribute must carry the same name and the same value on both sides.
+
 - `timeline event types` <a id="timeline-event-types"></a>
 
   The set of event types that will be included when building the [timeline view](#timeline). The available events are restricted to include only event types relevant to the application (Browser or Mobile event types).
